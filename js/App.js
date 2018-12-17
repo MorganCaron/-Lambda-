@@ -48,7 +48,7 @@ class SiteFooter extends Layout {
 			new Hr(),
 			new P([
 				new Strong('This site is fully realized with the libraries presented'), new Br(),
-				new A('Download on Github', { href: 'https://github.com/MorganCaron/Reassembly.js', class: 'btn m-5' })
+				new A('Download on Github', { href: 'https://github.com/MorganCaron/-Lambda-', class: 'btn m-5' })
 			], { class: 'text-center' }),
 			new Text('Created by '),
 			new A('Morgan Caron', { href: 'https://morgancaron.fr/cv' }),
