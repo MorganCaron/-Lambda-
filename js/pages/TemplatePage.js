@@ -2,13 +2,14 @@ class TemplateExample extends Layout {
 	constructor() {
 		super('div', { class: 'example' })
 		this.template = 'Hello, my name is {name}.'
+		this.text = Template.build(this.template, { name: 'Morgan' })
 		this.update()
 	}
 
 	render() {
 		return [
 			new P(this.template),
-			new P(Template.build(this.template, { name: 'Morgan' }))
+			new P(this.text)
 		]
 	}
 }
