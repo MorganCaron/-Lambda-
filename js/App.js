@@ -1,4 +1,4 @@
-class EmptyPage extends Layout {
+class ComingSoonPage extends Layout {
 	constructor() {
 		super('div')
 		this.update()
@@ -11,9 +11,9 @@ class EmptyPage extends Layout {
 	}
 }
 
-class SiteHeader extends Layout {
+class Navbar extends Layout {
 	constructor(page) {
-		super('header', { class: 'muted' })
+		super('div', { class: 'navbar muted' })
 		this.page = page
 		this.update()
 	}
@@ -27,16 +27,17 @@ class SiteHeader extends Layout {
 				new A('Stylize.js', { href: '#' }, () => { this.page.change(StylizePage) }),
 				new A('Fetch.js', { href: '#' }, () => { this.page.change(FetchPage) }),
 				new A('Template.js', { href: '#' }, () => { this.page.change(TemplatePage) }),
-				new A('Router.js', { href: '#' }, () => { this.page.change(EmptyPage) }),
-				new A('SyntaxColorizer.js', { href: '#' }, () => { this.page.change(EmptyPage) }),
-				new A('Progressive.js', { href: '#' }, () => { this.page.change(EmptyPage) }),
-				new A('Glitch.js', { href: '#' }, () => { this.page.change(EmptyPage) })
-			], { class: 'navbar' })
+				new A('Relevancy.js', { href: '#' }, () => { this.page.change(RelevancyPage) }),
+				new A('Router.js', { href: '#' }, () => { this.page.change(ComingSoonPage) }),
+				new A('SyntaxColorizer.js', { href: '#' }, () => { this.page.change(ComingSoonPage) }),
+				new A('Progressive.js', { href: '#' }, () => { this.page.change(ComingSoonPage) }),
+				new A('Glitch.js', { href: '#' }, () => { this.page.change(ComingSoonPage) })
+			])
 		]
 	}
 }
 
-class SiteFooter extends Layout {
+class Credits extends Layout {
 	constructor() {
 		super('footer', { class: 'lead text-right' })
 		this.update()
@@ -96,7 +97,7 @@ class App {
 		})
 
 		Head.setStyle('App', Stylize.treeToCss({
-			'body>header': {
+			'.navbar': {
 				padding: '0 1rem',
 				display: 'flex',
 				flexDirection: 'column',
@@ -106,7 +107,7 @@ class App {
 				h1: {
 					margin: '0'
 				},
-				'.navbar': {
+				'nav': {
 					display: 'flex',
 					flexDirection: 'column',
 					flexWrap: 'wrap',
@@ -134,12 +135,12 @@ class App {
 				}
 			},
 			'@media(min-width: 576px)': {
-				'body>header .navbar': {
+				'.navbar nav': {
 					flexDirection: 'row'
 				}
 			},
 			'@media(min-width: 768px)': {
-				'body>header': {
+				'.navbar': {
 					flexDirection: 'row',
 					justifyContent: 'space-between'
 				}
@@ -149,10 +150,10 @@ class App {
 
 	render() {
 		Body.setContent([
-			new SiteHeader(this.page),
+			new Navbar(this.page),
 			new Div([
 				new this.page.value(),
-				new SiteFooter()
+				new Credits()
 			], { class: 'container default' })
 		])
 	}
