@@ -13,16 +13,15 @@ class EmptyPage extends Layout {
 
 class SiteHeader extends Layout {
 	constructor(page) {
-		super('header', { class: 'secondary' })
+		super('header', { class: 'muted' })
 		this.page = page
 		this.update()
 	}
 
 	render() {
 		return [
-			new H1('<λ/>', { class: 'text-center' }),
+			new H1([new A('<λ/>', { href: '#' }, () => { this.page.change(HomePage) })], { class: 'text-center' }),
 			new Nav([
-				new A('Home', { href: '#' }, () => { this.page.change(HomePage) }),
 				new A('Reassembly.js', { href: '#' }, () => { this.page.change(ReassemblyPage) }),
 				new A('Reactive.js', { href: '#' }, () => { this.page.change(ReactivePage) }),
 				new A('Stylize.js', { href: '#' }, () => { this.page.change(StylizePage) }),
@@ -73,7 +72,7 @@ class App {
 				color: '#111'
 			},
 			muted: {
-				backgroundColor: 'rgba(49,52,57,0.3)',
+				backgroundColor: 'rgba(49,52,57,.7)',
 				color: 'white'
 			},
 			primary: {
@@ -98,17 +97,26 @@ class App {
 
 		Head.setStyle('App', Stylize.treeToCss({
 			'body>header': {
-				padding: '.1rem',
-			},
-			'.navbar': {
+				padding: '0 1rem',
 				display: 'flex',
 				flexDirection: 'column',
 				flexWrap: 'wrap',
 				justifyContent: 'center',
 				alignItems: 'center',
-				marginBottom: '1rem',
-				'>a': {
-					padding: '.5rem',
+				h1: {
+					margin: '0'
+				},
+				'.navbar': {
+					display: 'flex',
+					flexDirection: 'column',
+					flexWrap: 'wrap',
+					justifyContent: 'center',
+					alignItems: 'center',
+					'a': {
+						padding: '.5rem'
+					}
+				},
+				'a': {
 					textDecoration: 'none',
 					transition: 'all .15s ease-in-out',
 					transitionProperty: 'background-color',
@@ -126,8 +134,14 @@ class App {
 				}
 			},
 			'@media(min-width: 576px)': {
-				'.navbar': {
+				'body>header .navbar': {
 					flexDirection: 'row'
+				}
+			},
+			'@media(min-width: 768px)': {
+				'body>header': {
+					flexDirection: 'row',
+					justifyContent: 'space-between'
 				}
 			}
 		}))
