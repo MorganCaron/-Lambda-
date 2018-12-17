@@ -67,7 +67,6 @@ class RelevancyPage extends Layout {
 	render() {
 		return [
 			new H2('Relevancy.js'),
-			new P('Relevancy.js is a JavaScript library for building CSS.'),
 			new H3('Example'),
 			new RelevancyExample(),
 			new H3('Source code'),
