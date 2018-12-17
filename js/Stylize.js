@@ -13,7 +13,7 @@ class Stylize {
 					nestedTree[selector] = this.nestingTree(value)
 				else {
 					selector = selector.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
-					const spaceBetweenSelectors = (parentSelector != '' && !"#.>:".includes(selector[0])) ? ' ' : ''
+					const spaceBetweenSelectors = (parentSelector != '' && !">:".includes(selector[0])) ? ' ' : ''
 					const completeSelector = parentSelector + spaceBetweenSelectors + selector
 					nestedTree = { ...nestedTree, ...this.nestingTree(value, completeSelector) }
 				}
