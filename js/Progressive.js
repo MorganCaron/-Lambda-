@@ -1,15 +1,15 @@
-class Writer {
-	constructor(element) {
-		this.element = element
-	}
-
-	write(str, interval, callback = null) {
-		for (let i = 0; i < str.length; ++i) {
-			setTimeout((element, str, index) => {
-				element.innerHTML += str[index]
-			}, interval * i, this.element, str, i)
+class Progressive {
+	static write(str, add, interval, callbackBetween, callbackAfter = null) {
+		const addLetter = (str, add, interval, callbackBetween, callbackAfter) => {
+			if (add && add.length)
+				setTimeout(() => {
+					str += add[0]
+					callbackBetween(str)
+					addLetter(str, add.slice(1), interval, callbackBetween, callbackAfter)
+				}, interval, str, add, interval, callbackBetween, callbackAfter)
 		}
-		if (callback)
-			setTimeout(callback, interval * str.length)
+		if (callbackAfter)
+			setTimeout(callbackAfter, interval * (add.length + 1), str + add)
+		addLetter(str, add, interval, callbackBetween, callbackAfter)
 	}
 }

@@ -13,7 +13,7 @@ class ComingSoonPage extends Layout {
 
 class Navbar extends Layout {
 	constructor(page) {
-		super('div', { class: 'navbar muted' })
+		super('div', { class: 'navbar muted greyBackground' })
 		this.page = page
 		this.update()
 	}
@@ -30,7 +30,7 @@ class Navbar extends Layout {
 				new A('Relevancy.js', { href: '#' }, () => { this.page.change(RelevancyPage) }),
 				new A('Router.js', { href: '#' }, () => { this.page.change(ComingSoonPage) }),
 				new A('SyntaxColorizer.js', { href: '#' }, () => { this.page.change(ComingSoonPage) }),
-				new A('Progressive.js', { href: '#' }, () => { this.page.change(ComingSoonPage) }),
+				new A('Progressive.js', { href: '#' }, () => { this.page.change(ProgressivePage) }),
 				new A('Glitch.js', { href: '#' }, () => { this.page.change(ComingSoonPage) })
 			])
 		]
@@ -68,6 +68,12 @@ class App {
 		})
 
 		const Colors = {
+			darkgreyBackground: {
+				background: "url('img/darkgrey-background.png')",
+			},
+			greyBackground: {
+				background: "url('img/grey-background.png')",
+			},
 			default: {
 				backgroundColor: '#eee',
 				color: '#111'
@@ -88,10 +94,12 @@ class App {
 
 		Fetch.importTextFile('css/theme.css', template => {
 			const css = Template.build(template, {
-				'default': Stylize.treeToCss(Colors.default),
-				'muted': Stylize.treeToCss(Colors.muted),
-				'primary': Stylize.treeToCss(Colors.primary),
-				'secondary': Stylize.treeToCss(Colors.secondary)
+				darkgreyBackground: Stylize.treeToCss(Colors.darkgreyBackground),
+				greyBackground: Stylize.treeToCss(Colors.greyBackground),
+				default: Stylize.treeToCss(Colors.default),
+				muted: Stylize.treeToCss(Colors.muted),
+				primary: Stylize.treeToCss(Colors.primary),
+				secondary: Stylize.treeToCss(Colors.secondary)
 			}, '[', ']')
 			Head.setStyle('Theme', css)
 		})
@@ -108,19 +116,23 @@ class App {
 					margin: '0'
 				},
 				'nav': {
+					margin: '.5rem 0',
 					display: 'flex',
 					flexDirection: 'column',
 					flexWrap: 'wrap',
 					justifyContent: 'center',
 					alignItems: 'center',
 					'a': {
-						padding: '.5rem'
+						padding: '.5rem',
+						':hover': {
+							paddingTop: 'calc(.5rem - 2px)',
+							borderTop: '2px solid currentColor'
+						}
 					}
 				},
 				'a': {
 					textDecoration: 'none',
-					transition: 'all .15s ease-in-out',
-					transitionProperty: 'background-color',
+					transition: 'background-color .15s ease-in-out',
 					':hover': {
 						backgroundColor: 'rgba(255, 255, 255, .1)'
 					}
