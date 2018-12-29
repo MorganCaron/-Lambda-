@@ -67,7 +67,7 @@ class ProgressivePage extends Layout {
 	render() {
 		return [
 			new H2('Progressive.js'),
-			new P('Progressive.js is a JavaScript library for file request.'),
+			new P('Progressive.js is a JavaScript library for progressive construction of elements.'),
 			new H3('Example & Source code'),
 			new ProgressiveExample()
 		]
