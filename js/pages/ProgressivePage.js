@@ -40,7 +40,7 @@ class ProgressiveExample extends Layout {
 		this.lines.push(new Pre(content, { class: 'line' }))
 		if (this.lines.length > 15) {
 			this.lines.shift()
-
+			this.update()
 		}
 		else if (content != '')
 			this.update()
@@ -60,8 +60,6 @@ class ProgressivePage extends Layout {
 	constructor() {
 		super('div')
 		this.update()
-
-
 	}
 
 	render() {
