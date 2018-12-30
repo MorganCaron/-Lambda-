@@ -144,8 +144,8 @@ class App {
 			new P('Callback function for tags <a>, <button> and <input>'),
 			new H4('JavaScript'),
 			new Pre(`new A('A', { href: '#' }, () => { console.log('click <a>') }),
-new Button('Button', () => { console.log('click <button>') }, { href: '#' }),
-new Input('Input', () => { console.log('input <input>') }, { href: '#' })`, { class: 'example' }),
+new Button('Button', () => { console.log('click <button>') }, { class: 'yourClasses' }),
+new Input('Input', () => { console.log('input <input>') }, { class: 'yourClasses' })`, { class: 'example' }),
 
 			new P('Adding style'),
 			new H4('JavaScript'),
