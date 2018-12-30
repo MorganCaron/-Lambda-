@@ -12,26 +12,25 @@ class ComingSoonPage extends Layout {
 }
 
 class Navbar extends Layout {
-	constructor(page) {
+	constructor() {
 		super('div', { class: 'navbar muted greyBackground' })
-		this.page = page
 		this.update()
 	}
 
 	render() {
 		return [
-			new H1([new A('<λ/>', { href: '#' }, () => { this.page.change(HomePage) })], { class: 'text-center' }),
+			new H1([new A('<λ/>', { href: '#' }, () => { router.navigate('') })], { class: 'text-center' }),
 			new Nav([
-				new A('Reassembly.js', { href: '#' }, () => { this.page.change(ReassemblyPage) }),
-				new A('Reactive.js', { href: '#' }, () => { this.page.change(ReactivePage) }),
-				new A('Stylize.js', { href: '#' }, () => { this.page.change(StylizePage) }),
-				new A('Fetch.js', { href: '#' }, () => { this.page.change(FetchPage) }),
-				new A('Template.js', { href: '#' }, () => { this.page.change(TemplatePage) }),
-				new A('Relevancy.js', { href: '#' }, () => { this.page.change(RelevancyPage) }),
-				new A('Router.js', { href: '#' }, () => { this.page.change(ComingSoonPage) }),
-				new A('SyntaxColorizer.js', { href: '#' }, () => { this.page.change(ComingSoonPage) }),
-				new A('Progressive.js', { href: '#' }, () => { this.page.change(ProgressivePage) }),
-				new A('Glitch.js', { href: '#' }, () => { this.page.change(ComingSoonPage) })
+				new A('Reassembly.js', { href: '#' }, () => { router.navigate('reassembly') }),
+				new A('Reactive.js', { href: '#' }, () => { router.navigate('reactive') }),
+				new A('Stylize.js', { href: '#' }, () => { router.navigate('stylize') }),
+				new A('Fetch.js', { href: '#' }, () => { router.navigate('fetch') }),
+				new A('Template.js', { href: '#' }, () => { router.navigate('template') }),
+				new A('Relevancy.js', { href: '#' }, () => { router.navigate('relevancy') }),
+				new A('Router.js', { href: '#' }, () => { router.navigate('router') }),
+				new A('SyntaxColorizer.js', { href: '#' }, () => { router.navigate('syntaxcolorizer') }),
+				new A('Progressive.js', { href: '#' }, () => { router.navigate('progressive') }),
+				new A('Glitch.js', { href: '#' }, () => { router.navigate('glitch') })
 			])
 		]
 	}
@@ -61,7 +60,19 @@ class App {
 	constructor() {
 		this.page = new Reactive()
 		this.page.update = this.render.bind(this)
-		this.page.change(HomePage)
+		router.mode = 'hash'
+		router.add('', () => { this.page.change(HomePage) })
+		router.add('reassembly', () => { this.page.change(ReassemblyPage) })
+		router.add('reactive', () => { this.page.change(ReactivePage) })
+		router.add('stylize', () => { this.page.change(StylizePage) })
+		router.add('fetch', () => { this.page.change(FetchPage) })
+		router.add('template', () => { this.page.change(TemplatePage) })
+		router.add('relevancy', () => { this.page.change(RelevancyPage) })
+		router.add('router', () => { this.page.change(ComingSoonPage) })
+		router.add('syntaxcolorizer', () => { this.page.change(ComingSoonPage) })
+		router.add('progressive', () => { this.page.change(ProgressivePage) })
+		router.add('glitch', () => { this.page.change(ComingSoonPage) })
+		router.listen()
 
 		Fetch.importTextFile('css/utils.css', css => {
 			Head.setStyle('Utils', css)
@@ -162,7 +173,7 @@ class App {
 
 	render() {
 		Body.setContent([
-			new Navbar(this.page),
+			new Navbar(),
 			new Div([
 				new this.page.value(),
 				new Credits()
