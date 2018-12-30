@@ -71,7 +71,6 @@ class ReassemblyPage extends Layout {
 			new H4('JavaScript'),
 			new Pre(`class App {
 	constructor() {
-		this.update()
 	}
 
 	render() {
@@ -88,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			new H4('JavaScript'),
 			new Pre(`class App {
 	constructor() {
-		this.update()
 	}
 
 	render() {
@@ -125,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 class App {
 	constructor() {
-		this.update()
 	}
 
 	render() {
@@ -156,8 +153,6 @@ new Input('Input', () => { console.log('input <input>') }, { href: '#' })`, { cl
 			background-color: blue;
 		}
 		\`)
-
-		this.update()
 	}
 
 	render() {
