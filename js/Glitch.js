@@ -1,21 +1,18 @@
 class Glitch {
-	constructor(element) {
+	static text(element) {
+
+	}
+
+	static image(element) {
 
 	}
 }
 
-Math.degtorad = (degrees) => {
-	return degrees * Math.PI / 180;
-};
+Math.degtorad = (degrees) => degrees * Math.PI / 180
+Math.radtodeg = (radians) => radians * 180 / Math.PI
+Math.random_int = (integer) => Math.floor((integer + 1) * Math.random())
 
-Math.radtodeg = (radians) => {
-	return radians * 180 / Math.PI;
-};
-
-Math.random_int = function(integer) {
-	return Math.floor((integer + 1) * Math.random());
-};
-
+/*
 $(document).ready(function() {
 	$('img.glitch').each(function(i) {
 		var $img = $(this);
@@ -30,7 +27,7 @@ $(document).ready(function() {
 		$img = $canvas.find("> img");
 		var $src = $img.attr('src');
 		var context = $canvas.get(0).getContext("2d");
-        /*
+        / *
         var redbuf = document.createElement('canvas');
         redbuf.width = width;
         redbuf.height = height;
@@ -39,7 +36,7 @@ $(document).ready(function() {
         redcontext.fillRect(0, 0, width, height);
         redcontext.globalCompositeOperation = "multiply";
         redcontext.drawImage($img.get(0), 0, 0);
-        */
+        * /
 		var distance = 0;
 		var angle = 90;
 		var segmented = 0;
@@ -118,3 +115,4 @@ $(document).ready(function() {
 		glitchImage();
 	})
 });
+*/

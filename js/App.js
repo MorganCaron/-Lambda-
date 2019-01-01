@@ -71,7 +71,7 @@ class App {
 		router.add('router', () => { this.page.change(ComingSoonPage) })
 		router.add('syntaxcolorizer', () => { this.page.change(ComingSoonPage) })
 		router.add('progressive', () => { this.page.change(ProgressivePage) })
-		router.add('glitch', () => { this.page.change(ComingSoonPage) })
+		router.add('glitch', () => { this.page.change(GlitchPage) })
 		router.listen()
 
 		Fetch.importTextFile('css/utils.css', css => {
@@ -84,6 +84,10 @@ class App {
 			},
 			greyBackground: {
 				background: "url('img/grey-background.png')",
+			},
+			darkcyan: {
+				backgroundColor: 'darkcyan',
+				color: 'white'
 			},
 			default: {
 				backgroundColor: '#eee',
@@ -107,6 +111,7 @@ class App {
 			const css = Template.build(template, {
 				darkgreyBackground: Stylize.treeToCss(Colors.darkgreyBackground),
 				greyBackground: Stylize.treeToCss(Colors.greyBackground),
+				darkcyan: Stylize.treeToCss(Colors.darkcyan),
 				default: Stylize.treeToCss(Colors.default),
 				muted: Stylize.treeToCss(Colors.muted),
 				primary: Stylize.treeToCss(Colors.primary),
@@ -156,6 +161,29 @@ class App {
 				'a': {
 					margin: '.5rem'
 				}
+			},
+			'.windowsarea': {
+				position: 'relative',
+				width: '100%',
+				minHeight: '200px',
+				padding: '.5rem',
+				overflow: 'hidden',
+				userSelect: 'none',
+				'.window': {
+					width: '500px',
+					height: '300px',
+					border: '2px solid darkcyan',
+					margin: '.5rem',
+					'header': {
+						display: 'flex',
+						justifyContent: 'space-between'
+					}
+				}
+			},
+			'p.glitch': {
+				margin: 0,
+				fontSize: 40,
+				fontWeight: 'normal'
 			},
 			'@media(min-width: 576px)': {
 				'.navbar nav': {

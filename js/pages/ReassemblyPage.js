@@ -102,6 +102,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		])
 	}
 }`, { class: 'example' }),
+
+			new P('Encapsulation'),
+			new H4('JavaScript'),
+			new Pre(`new P([
+	new Text('Hello '),
+	new Br(),
+	new A('World', { href: '#' })
+])`, { class: 'example' }),
+
 			new P('Adding attributes'),
 			new H4('JavaScript'),
 			new Pre(`new H1('Title', { id: 'mainTitle', class: 'text-center bold' })`, { class: 'example' }),
