@@ -1,7 +1,8 @@
 import { Elem, Layout, Body, Tag, View, Reactive, Router } from '../../ModularDom'
 import * as Prism from 'prismjs'
 import { Menu } from './Layouts'
-import gettingStartedTxt from './Templates/GettingStarted.txt'
+import gettingStartedHTML from './Examples/GettingStarted/HTML.txt'
+import gettingStartedTS from './Examples/GettingStarted/TS.txt'
 
 export class GettingStarted extends Layout {
 	constructor() {
@@ -16,18 +17,11 @@ export class GettingStarted extends Layout {
 			div class: container {
 				h4 "index.html"
 				pre class: language-html {
-					code "<!DOCTYPE html>
-<html>
-	<head>
-		<title>MyProject</title>
-	</head>
-	<body>
-	</body>
-</html>"
+					code "${gettingStartedHTML}"
 				}
 				h4 "App.ts"
 				pre class: language-js {
-					code "${gettingStartedTxt}"
+					code "${gettingStartedTS}"
 				}
 			}
 		`
