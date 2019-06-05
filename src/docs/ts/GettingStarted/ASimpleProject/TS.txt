@@ -3,6 +3,7 @@ import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
 class App extends Body {
 	constructor() {
 		super()
+		this.update()
 	}
 
 	render() {
@@ -14,3 +15,5 @@ class App extends Body {
 		`
 	}
 }
+
+document.addEventListener('DOMContentLoaded', () => { new App() })

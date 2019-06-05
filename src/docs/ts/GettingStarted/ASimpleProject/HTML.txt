@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>MyProject</title>
+		<link href="dist/app.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<script type="text/javascript" src="dist/app.min.js"></script>
+	</body>
+</html>

@@ -1,5 +1,4 @@
 import { Elem, Layout, Body, Tag, View, Reactive, Router } from '../../ModularDom'
-import { Menu } from './Menu'
 
 export class Home extends Layout {
 	constructor() {

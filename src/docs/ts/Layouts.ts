@@ -1,5 +1,0 @@
-export { Header } from './Header'
-export { Footer } from './Footer'
-export { Menu } from './Menu'
-export { Home } from './Home'
-export { GettingStarted } from './GettingStarted'
