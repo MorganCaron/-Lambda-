@@ -27,7 +27,7 @@ export class VDOMObject {
 						event[0].preventDefault();
 						const listener = attrs[attr] as EventListener
 						listener(...event)
-					}, false)
+					})
 					if (attr === 'click' && this.el.tagName === 'A')
 						this.el.setAttribute('href', '#')
 				}
