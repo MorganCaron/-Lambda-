@@ -10,7 +10,7 @@ class App extends Body {
 		return View`
 			h1 "Hello World"
 			div class: container {
-				p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+				p "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 			}
 		`
 	}

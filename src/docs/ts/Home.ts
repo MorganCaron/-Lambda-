@@ -8,9 +8,22 @@ export class Home extends Layout {
 
 	render() {
 		return View`
-			p class: lead "A new way of thinking the web"
-			button click: ${() => Router.navigate('getting-started')} class: btn "Getting started"
-			p "This site is fully realized with the libraries presented"
+			div class: "row text-left" {
+				div class: col-md-6 {
+					h3 "What is ModularDom ?"
+					p class: lead {
+						"ModularDom is a TypeScript framework designed to facilitate the creation of " strong "single-page web applications" "." br;
+						"The framework only manages the application interface, considered as " strong "the view in the MVC model" "."
+					}
+				}
+				div class: col-md-6 {
+					h3 "Why use it ?"
+					p class: lead {
+						"It stands out from its competitors by its " strong "ease of use" ", its " strong "performance" ", and " a click: ${() => Router.navigate('flip-animations')} { strong "the touch of magic" } " it adds to projects." br;
+						"ModularDom works with a " strong "virtual DOM" " and updates the rendering in the browser only when necessary."
+					}
+				}
+			}
 		`
 	}
 }
