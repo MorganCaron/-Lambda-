@@ -179,7 +179,7 @@ class ModularDomParser {
 		while (!this.isEndOfValues() && !(untilBracket && this.isString() && !this.isEndOfString() && this.currentChar() === '}')) {
 			elems.push(this.parseElement())
 			if (typeof this.currentValue() !== 'string')
-				++this.indexValue
+				this.gotoNextValue()
 			jumpToNextElem()
 		}
 		if (untilBracket) {
@@ -219,19 +219,10 @@ export const View = (literals: TemplateStringsArray, ...placeholders: (string | 
 			return placeholder.map(elem => (elem instanceof VDOMText) ? (elem as VDOMText).el.wholeText : elem)
 		return [placeholder]
 	}
-	/*
-	const concatStringValues = (values: (string | VDOMObject | EventListener)[]): (string | VDOMObject | EventListener)[] => {
-		let concatenatedValues: (string | VDOMObject | EventListener)[] = []
-		values.forEach(value => {
-			concatenatedValues.push((concatenatedValues.length && typeof concatenatedValues[concatenatedValues.length - 1] == 'string' && typeof value === 'string') ? concatenatedValues.pop() + value : value)
-		})
-		return concatenatedValues
-	}
-	*/
 	let indexLiteral = 0
 	const values = placeholders.map(elem => [literals[indexLiteral++], ...convertPlaceholder(elem)]).reduce(<T>(arr0: T[], arr1: T[]) => [...arr0, ...arr1], [])
 	values.push(literals[indexLiteral])
-	return new ModularDomParser().parseView(/*concatStringValues(*/values/*)*/)
+	return new ModularDomParser().parseView(values)
 }
 
 export const Tag = (literals: TemplateStringsArray, ...placeholders: (string | EventListener)[]): VDOMElem => {
