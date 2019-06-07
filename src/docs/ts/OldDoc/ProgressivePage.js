@@ -4,25 +4,6 @@ class ProgressiveExample extends Layout {
 		this.lines = []
 		this.update()
 
-		Head.setStyle('Terminal', '@keyframes blinker{50%{opacity:0}}' + Stylize.treeToCss({
-			'.terminal': {
-				width: '100%',
-				minHeight: '200px',
-				overflow: 'hidden',
-				backgroundColor: 'black',
-				color: 'white',
-				fontFamily: 'monospace',
-				'.line': {
-					margin: 0,
-					':last-child::after': {
-						content: "'█'",
-						animation: 'blinker .7s step-start infinite',
-						color: 'white'
-					}
-				}
-			}
-		}))
-
 		this.newLine()
 		Progressive.write('', 'Loading source code... ', 15, this.updateLastLine.bind(this), (str) => {
 			setTimeout(() => {
@@ -53,21 +34,5 @@ class ProgressiveExample extends Layout {
 
 	render() {
 		return this.lines
-	}
-}
-
-class ProgressivePage extends Layout {
-	constructor() {
-		super('div')
-		this.update()
-	}
-
-	render() {
-		return [
-			new H2('Progressive.js'),
-			new P('Progressive.js is a JavaScript library for progressive construction of elements.'),
-			new H3('Example & Source code'),
-			new ProgressiveExample()
-		]
 	}
 }
