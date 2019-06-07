@@ -86,7 +86,7 @@ class ModularDomParser {
 					++this.indexChar
 					quotation += this.currentChar()
 					if (this.isEndOfString())
-						throw new Error(`Syntax error: Character \\ must escape a character.`)
+						throw new Error(`Syntax error: Character \\ must be followed by a character to escape.`)
 				}
 				++this.indexChar
 			}
@@ -96,7 +96,7 @@ class ModularDomParser {
 			}
 		}
 		if (this.isEndOfValues() || this.isEndOfString() || this.currentChar() !== quoteType)
-			throw new Error(`Syntax error: Character " ou ' is missing.`)
+			throw new Error(`Syntax error: A closing brace ${quoteType} is missing.`)
 		++this.indexChar
 		return quotation
 	}
@@ -122,7 +122,7 @@ class ModularDomParser {
 			const attr = this.getNextWord()
 			this.parseSpace()
 			if (this.isEndOfString() || this.currentChar() !== ':')
-				throw new Error(`Syntax error: Character ':' is missing after ${attr} attribute.`)
+				throw new Error(`Syntax error: Character ':' is missing after "${attr}" attribute.`)
 			++this.indexChar
 			attrs[attr] = this.parseValue()
 			this.parseSpace()
@@ -143,7 +143,7 @@ class ModularDomParser {
 				const attrs = this.parseAttributes()
 				let content: string | Elem[]
 				if (this.isEndOfString())
-					throw new Error('Syntax error: Missing element content or \';\' character.')
+					throw new Error(`Syntax error: Missing element content or semicolon after "${tag} ${JSON.stringify(attrs)}"`)
 				if ('\'"'.includes(this.currentChar()))
 					content = this.parseQuote()
 				else {
@@ -152,7 +152,7 @@ class ModularDomParser {
 						return new VDOMElem(tag, '', attrs)
 					}
 					if (this.currentChar() !== '{')
-						throw new Error('Syntax error: Character \'{\' or \';\' is missing.')
+						throw new Error(`Syntax error: Character \'{\' or \';\' is missing  after "${tag} ${JSON.stringify(attrs)}"`)
 					++this.indexChar
 					content = this.parseBlock(true)
 				}
