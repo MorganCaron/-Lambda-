@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300')
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300')
 
+$blue: #008CBA
+
 \:root
 	--default-bg-color: white
 	--default-color: black
@@ -44,6 +46,12 @@ h4
 
 hr
 	border: 1px solid darkcyan
+
+p a
+	color: $blue
+	&:hover
+		color: darken($blue, 15%)
+		text-decoration: underline
 
 ul
 	padding: 0 1em
@@ -106,6 +114,9 @@ a
 
 pre
 	white-space: pre-wrap
+
+.demo
+	border: 2px solid darkcyan
 
 .info, .warning
 	user-select: text
