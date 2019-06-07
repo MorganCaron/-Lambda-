@@ -1,12 +1,11 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router } from '../../ModularDom'
+import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
 import 'nootstrap'
 import 'prism-themes/themes/prism-atom-dark'
 import '../sass/Style'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { Home } from './Home'
-import { GettingStarted } from './GettingStarted/GettingStarted'
-import { ASimpleProject } from './GettingStarted/ASimpleProject/ASimpleProject'
+import { GettingStartedPage, ASimpleProjectPage, ComponentPage, ViewSyntaxPage, ReactivityPage, RouterPage, FlipAnimationsPage, WriterPage } from './Pages'
 
 class App extends Body {
 	page: Reactive<Elem>
@@ -18,8 +17,14 @@ class App extends Body {
 
 		Router.mode = 'hash'
 		Router.add('', () => { this.page.value = new Home() })
-		Router.add('getting-started', () => { this.page.value = new GettingStarted() })
-		Router.add('a-simple-project', () => { this.page.value = new ASimpleProject() })
+		Router.add('getting-started', () => { this.page.value = new GettingStartedPage() })
+		Router.add('a-simple-project', () => { this.page.value = new ASimpleProjectPage() })
+		Router.add('component', () => { this.page.value = new ComponentPage() })
+		Router.add('view-syntax', () => { this.page.value = new ViewSyntaxPage() })
+		Router.add('reactivity', () => { this.page.value = new ReactivityPage() })
+		Router.add('router', () => { this.page.value = new RouterPage() })
+		Router.add('flip-animations', () => { this.page.value = new FlipAnimationsPage() })
+		Router.add('writer', () => { this.page.value = new WriterPage() })
 		Router.listen()
 	}
 

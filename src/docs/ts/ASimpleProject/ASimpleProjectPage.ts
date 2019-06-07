@@ -1,10 +1,10 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router } from '../../../../ModularDom'
+import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
 import * as Prism from 'prismjs'
 import { Menu } from '../Menu'
-import ASimpleProjectHTML from './HTML.txt'
-import ASimpleProjectTS from './TS.txt'
+import IndexHtml from '!!raw-loader!./example/index.html'
+import AppTs from '!!raw-loader!./example/App.ts'
 
-export class ASimpleProject extends Layout {
+export class ASimpleProjectPage extends Layout {
 	constructor() {
 		super(Tag`div class: container`)
 		this.update()
@@ -25,13 +25,21 @@ export class ASimpleProject extends Layout {
 					"All ModularDom components must implement a " code class: lang-js "render()" " method that " strong "returns what should be displayed" "." br;
 					"The syntax used to generate HTML is specific to ModularDom. It is inspired by the SCSS language."
 				}
+				h3 "Demo"
+				div class: demo {
+					h1 "Hello World"
+					div class: container {
+						p "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+					}
+				}
+				h3 "Source Code"
 				h4 "index.html"
 				pre class: lang-html {
-					code "${ASimpleProjectHTML}"
+					code "${IndexHtml}"
 				}
 				h4 "App.ts"
 				pre class: lang-js {
-					code "${ASimpleProjectTS}"
+					code "${AppTs}"
 				}
 			}
 		}

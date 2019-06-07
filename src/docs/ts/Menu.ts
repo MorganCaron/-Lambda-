@@ -1,4 +1,4 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router } from '../../../ModularDom'
+import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
 
 export class Menu extends Layout {
 	constructor() {
@@ -10,7 +10,7 @@ export class Menu extends Layout {
 		return View`
 			ul {
 				li { a click: ${() => Router.navigate('a-simple-project')} "A Simple Project" }
-				li { a click: ${() => Router.navigate('component')} "A Component" }
+				li { a click: ${() => Router.navigate('component')} "Component" }
 				li { a click: ${() => Router.navigate('view-syntax')} "The View Syntax" }
 				li { a click: ${() => Router.navigate('reactivity')} "The Reactivity" }
 				li { a click: ${() => Router.navigate('router')} "The Router" }
