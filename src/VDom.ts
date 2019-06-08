@@ -3,6 +3,9 @@ import { xor } from './Utils'
 
 export type Elem = (VDOMObject | VDOMText)
 export type Attributes = { [key: string]: string | EventListener }
+export interface HTMLElementEvent<T extends HTMLElement> extends Event {
+	target: T
+}
 
 export class VDOMText {
 	el: Text
