@@ -96,7 +96,7 @@ class ModularDomParser {
 			}
 		}
 		if (this.isEndOfValues() || this.isEndOfString() || this.currentChar() !== quoteType)
-			throw new Error(`Syntax error: A closing brace ${quoteType} is missing.`)
+			throw new Error(`Syntax error: A closing brace ${quoteType} is missing in "${quotation}".`)
 		++this.indexChar
 		return quotation
 	}
@@ -211,8 +211,10 @@ class ModularDomParser {
 	}
 }
 
-export const View = (literals: TemplateStringsArray, ...placeholders: (string | Elem | Elem[] | EventListener)[]): Elem[] => {
-	const convertPlaceholder = (placeholder: (string | Elem | Elem[] | EventListener)): (string | VDOMObject | EventListener)[] => {
+export const View = (literals: TemplateStringsArray, ...placeholders: (number | string | Elem | Elem[] | EventListener)[]): Elem[] => {
+	const convertPlaceholder = (placeholder: (number | string | Elem | Elem[] | EventListener)): (string | VDOMObject | EventListener)[] => {
+		if (typeof placeholder === 'number')
+			return [placeholder.toString()]
 		if (placeholder instanceof VDOMText)
 			return [(placeholder as VDOMText).el.wholeText]
 		if (Array.isArray(placeholder))
