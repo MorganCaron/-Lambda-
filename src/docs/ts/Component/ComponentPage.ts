@@ -54,12 +54,12 @@ export class ComponentPage extends Layout {
 					}
 				}
 				h3 "Source Code"
-				h4 "Carousel.ts"
-				pre class: lang-js {
+				h4 "Card.ts"
+				pre class: lang-ts {
 					code "${CardTs}"
 				}
 				h4 "App.ts"
-				pre class: lang-js {
+				pre class: lang-ts {
 					code "${AppTs}"
 				}
 			}

@@ -14,9 +14,9 @@ class App extends Body {
 	constructor() {
 		super()
 		this.articles = [
-			{ title: 'Title', description: 'Description', image: 'url' },
-			{ title: 'Title', description: 'Description', image: 'url' },
-			{ title: 'Title', description: 'Description', image: 'url' }
+			{ title: 'Title', description: 'Description', image: 'https://picsum.photos/400/300?random=1' },
+			{ title: 'Title', description: 'Description', image: 'https://picsum.photos/400/300?random=2' },
+			{ title: 'Title', description: 'Description', image: 'https://picsum.photos/400/300?random=3' }
 		]
 		this.update()
 	}

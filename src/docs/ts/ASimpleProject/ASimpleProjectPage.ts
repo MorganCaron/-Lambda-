@@ -29,7 +29,7 @@ export class ASimpleProjectPage extends Layout {
 				div class: demo {
 					h1 "Hello World"
 					div class: container {
-						p "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+						p class: lead "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 					}
 				}
 				h3 "Source Code"
@@ -38,7 +38,7 @@ export class ASimpleProjectPage extends Layout {
 					code "${IndexHtml}"
 				}
 				h4 "App.ts"
-				pre class: lang-js {
+				pre class: lang-ts {
 					code "${AppTs}"
 				}
 			}
