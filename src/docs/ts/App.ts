@@ -5,7 +5,7 @@ import '../sass/Style'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { Home } from './Home'
-import { GettingStartedPage, ASimpleProjectPage, ComponentPage, ViewSyntaxPage, ReactivityPage, RouterPage, FlipAnimationsPage, WriterPage } from './Pages'
+import { GettingStartedPage, ASimpleProjectPage, ComponentPage, ViewSyntaxPage, ReactivityPage, RouterPage, MagicalAnimationsPage, WriterPage } from './Pages'
 
 class App extends Body {
 	page: Reactive<Elem>
@@ -23,8 +23,8 @@ class App extends Body {
 		Router.add('view-syntax', () => { this.page.value = new ViewSyntaxPage() })
 		Router.add('reactivity', () => { this.page.value = new ReactivityPage() })
 		Router.add('router', () => { this.page.value = new RouterPage() })
-		Router.add('flip-animations', () => { this.page.value = new FlipAnimationsPage() })
 		Router.add('writer', () => { this.page.value = new WriterPage() })
+		Router.add('magical-animations', () => { this.page.value = new MagicalAnimationsPage() })
 		Router.listen()
 	}
 
