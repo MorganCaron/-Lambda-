@@ -25,10 +25,9 @@ export class InstallationPage extends Layout {
 				}
 				h2 "A Simple Project"
 				p class: lead {
-					"The main component of a ModularDom project is the class inheriting Body." br;
-					"Each component is updated by calling its " code class: lang-js "update()" " method. It is therefore " strong "necessary to call it in the constructor" "." br;
-					"All ModularDom components must implement a " code class: lang-js "render()" " method that " strong "returns what should be displayed" "." br;
-					"The syntax used to generate HTML is specific to ModularDom. It is inspired by the SCSS language."
+					"The main component of a ModularDom project is " strong "the class inheriting Body" "." br;
+					"Below is an example of a simple ModularDom project." br;
+					"For " strong "more information about its structure and syntax" ", refer to the " strong { a click: ${() => Router.navigate('component')} "Component" } " section."
 				}
 				h3 "Demo"
 				div class: demo {
