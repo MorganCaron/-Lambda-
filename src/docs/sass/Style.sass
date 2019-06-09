@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300')
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300')
 
+@import scrollbar
+
 $blue: #008CBA
 
 \:root
@@ -116,7 +118,14 @@ pre
 	white-space: pre-wrap
 
 .demo
+	padding: 0 1rem
 	border: 2px solid darkcyan
+
+input
+	padding: .25rem
+	border: 1px solid grey
+
++scrollbar(1rem, darkcyan, #333)
 
 .info, .warning
 	user-select: text
