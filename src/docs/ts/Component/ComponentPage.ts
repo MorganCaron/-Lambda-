@@ -2,8 +2,9 @@ import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
 import * as Prism from 'prismjs'
 import { Menu } from '../Menu'
 import { Card } from './example/Card'
+import { Demo } from './example/Demo'
 import CardTs from '!!raw-loader!./example/Card.ts'
-import AppTs from '!!raw-loader!./example/App.ts'
+import DemoTs from '!!raw-loader!./example/Demo.ts'
 
 type Article = {
 	title: string,
@@ -29,7 +30,6 @@ export class ComponentPage extends Layout {
 		return View`
 		div class: row {
 			div class: col-lg-3 {
-				h3 { a click: ${() => Router.navigate('getting-started')} "Getting started" }
 				${new Menu()}
 			}
 			div class: col-lg-9 {
@@ -42,25 +42,15 @@ export class ComponentPage extends Layout {
 					"The syntax used to generate HTML is specific to ModularDom. It is inspired by the SCSS language."
 				}
 				h3 "Demo"
-				div class: demo {
-					h1 "Cards"
-					div class: container {
-						div class: row {
-							${this.articles.flatMap(article => View`
-							div class: "col-lg-3 col-md-4 col-sm-6" {
-								${new Card(article.title, article.description, article.image)}
-							}`)}
-						}
-					}
-				}
+				${new Demo()}
 				h3 "Source Code"
 				h4 "Card.ts"
 				pre class: lang-ts {
 					code "${CardTs}"
 				}
-				h4 "App.ts"
+				h4 "Demo.ts"
 				pre class: lang-ts {
-					code "${AppTs}"
+					code "${DemoTs}"
 				}
 			}
 		}
