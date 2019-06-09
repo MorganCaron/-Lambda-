@@ -24,7 +24,7 @@ export class Header extends Layout {
 
 	render() {
 		return View`
-			h1 { a click: ${() => Router.navigate('')} "${this.title.value}" }
+			h1 click: ${() => Router.navigate('')} "${this.title.value}"
 		`
 	}
 }
