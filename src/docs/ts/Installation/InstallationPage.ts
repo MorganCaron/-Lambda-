@@ -4,7 +4,7 @@ import { Menu } from '../Menu'
 import IndexHtml from '!!raw-loader!./example/index.html'
 import AppTs from '!!raw-loader!./example/App.ts'
 
-export class ASimpleProjectPage extends Layout {
+export class InstallationPage extends Layout {
 	constructor() {
 		super(Tag`div class: container`)
 		this.update()
@@ -14,10 +14,15 @@ export class ASimpleProjectPage extends Layout {
 		return View`
 		div class: row {
 			div class: col-lg-3 {
-				h3 { a click: ${() => Router.navigate('getting-started')} "Getting started" }
 				${new Menu()}
 			}
 			div class: col-lg-9 {
+				h2 "Installation"
+				p class: lead {
+					strong "ModularDom needs TypeScript to work."
+					" We recommend the use of " strong { a href: "https://webpack.js.org/" target: _blank "Webpack" " to compile the TypeScript." }
+					" You will find a " strong { "Starter " a href: "https://github.com/MorganCaron/Webpack-Starter" target: _blank "here" }
+				}
 				h2 "A Simple Project"
 				p class: lead {
 					"The main component of a ModularDom project is the class inheriting Body." br;
@@ -27,10 +32,8 @@ export class ASimpleProjectPage extends Layout {
 				}
 				h3 "Demo"
 				div class: demo {
-					h1 "Hello World"
-					div class: container {
-						p class: lead "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-					}
+					h4 "Hello World"
+					p "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 				}
 				h3 "Source Code"
 				h4 "index.html"

@@ -1,5 +1,4 @@
-export { GettingStartedPage } from './GettingStarted/GettingStartedPage'
-export { ASimpleProjectPage } from './ASimpleProject/ASimpleProjectPage'
+export { InstallationPage } from './Installation/InstallationPage'
 export { ComponentPage } from './Component/ComponentPage'
 export { ViewSyntaxPage } from './ViewSyntax/ViewSyntaxPage'
 export { ReactivityPage } from './Reactivity/ReactivityPage'

@@ -8,10 +8,8 @@ class App extends Body {
 
 	render() {
 		return View`
-			h1 "Hello World"
-			div class: container {
-				p class: lead "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-			}
+			h4 "Hello World"
+			p "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 		`
 	}
 }

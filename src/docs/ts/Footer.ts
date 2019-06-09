@@ -10,7 +10,7 @@ export class Footer extends Layout {
 		return View`
 			hr;
 			p "This site is fully realized with the libraries presented"
-			button click: ${() => Router.navigate('getting-started')} class: "btn mr-2" "Getting started"
+			button click: ${() => Router.navigate('installation')} class: "btn mr-2" "Get Started"
 			a href: 'https://github.com/MorganCaron/ModularDom' class: btn "Download on Github"
 			p { "Created by " a href: 'https://github.com/MorganCaron' "Morgan Caron" }
 		`
