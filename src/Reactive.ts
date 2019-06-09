@@ -17,7 +17,8 @@ export class Reactive<T> {
 	}
 
 	update(): void {
-		this._updateFunction()
+		if (this._updateFunction)
+			this._updateFunction()
 		this.dependencies.forEach(dependency => {
 			dependency.update()
 		})
