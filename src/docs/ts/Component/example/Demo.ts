@@ -7,12 +7,12 @@ type Article = {
 	image: string
 }
 
-class App extends Body {
+export class Demo extends Layout {
 
 	articles: Article[]
 
 	constructor() {
-		super()
+		super(Tag`div class: demo`)
 		this.articles = [
 			{ title: 'Title', description: 'Description', image: 'https://picsum.photos/400/300?random=1' },
 			{ title: 'Title', description: 'Description', image: 'https://picsum.photos/400/300?random=2' },
@@ -23,19 +23,15 @@ class App extends Body {
 
 	render() {
 		return View`
-			h1 "Cards"
-			div class: container {
-				div class: row {
+			h4 "Cards"
+			div class: row {
+				div class: "col-lg-3 col-md-4 col-sm-6" {
+					${this.articles.flatMap(article => View`
 					div class: "col-lg-3 col-md-4 col-sm-6" {
-						${this.articles.flatMap(article => View`
-						div class: "col-lg-3 col-md-4 col-sm-6" {
-							${new Card(article.title, article.description, article.image)}
-						}`)}
-					}
+						${new Card(article.title, article.description, article.image)}
+					}`)}
 				}
 			}
 		`
 	}
 }
-
-document.addEventListener('DOMContentLoaded', () => { new App() })
