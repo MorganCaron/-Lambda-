@@ -91,15 +91,15 @@ export class Writer {
 		for (let i = 0; i < wagnerFischerResult.editions.length; ++i) {
 			const edition = wagnerFischerResult.editions[i]
 			if (edition === EWagnerFischerEdition.Insertion)
-				setTimeout((posSrc, posDest) => {
+				setTimeout((posSrc: number, posDest: number) => {
 					this.target.value = this.target.value.substring(0, posDest) + newString[posSrc] + this.target.value.substr(posDest)
 				}, (i + 1) * interval, posSrc, posDest)
 			else if (edition === EWagnerFischerEdition.Substitution)
-				setTimeout((posSrc, posDest) => {
+				setTimeout((posSrc: number, posDest: number) => {
 					this.target.value = this.target.value.substring(0, posDest) + newString[posSrc] + this.target.value.substr(posDest + 1)
 				}, (i + 1) * interval, posSrc, posDest)
 			else if (edition === EWagnerFischerEdition.Deletion)
-				setTimeout((posSrc, posDest) => {
+				setTimeout((posSrc: number, posDest: number) => {
 					this.target.value = this.target.value.substring(0, posDest) + this.target.value.substr(posDest + 1)
 				}, (i + 1) * interval, posSrc, posDest)
 			if (edition !== EWagnerFischerEdition.Deletion) {
