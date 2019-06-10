@@ -36,10 +36,10 @@ export class ComponentPage extends Layout {
 				h2 "A Component"
 				p class: lead {
 					"A component must " strong "inherit the Layout class" br;
-					"Call the super constructor by defining a " strong "tag name" br;
-					"Each component is updated by calling its " code class: lang-js "update()" " method. It is therefore " strong "necessary to call it in the constructor" "." br;
-					"All ModularDom components must implement a " code class: lang-js "render()" " method that " strong "returns what should be displayed" "." br;
-					"The syntax used to generate HTML is specific to ModularDom. It is inspired by the SCSS language."
+					"Call the " strong "super constructor" " by defining a " strong "tag name" br;
+					"Each component is updated by calling its " code class: lang-ts "update()" " method. It is therefore " strong "necessary to call it in the constructor" "." br;
+					"All ModularDom components must implement a " code class: lang-ts "render()" " method that " strong "returns what should be displayed" "." br;
+					strong "The syntax" " of the " strong "super constructor" " and the " code class: lang-ts "render()" " method is explained in the " strong { a click: ${() => Router.navigate('view-syntax')} "View Syntax" } " section."
 				}
 				h3 "Demo"
 				${new Demo()}

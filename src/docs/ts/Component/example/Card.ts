@@ -15,7 +15,7 @@ export class Card extends Layout {
 
 	render() {
 		return View`
-			h3 "${this.title}"
+			h5 "${this.title}"
 			img src: "${this.image}" alt: "${this.title}";
 			p "${this.description}"
 		`
