@@ -31,8 +31,10 @@ export class InstallationPage extends Layout {
 				}
 				h3 "Demo"
 				div class: demo {
-					h4 "Hello World"
-					p "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+					div class: container-fluid {
+						h4 "Hello World"
+						p "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+					}
 				}
 				h3 "Source Code"
 				h4 "index.html"

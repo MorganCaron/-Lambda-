@@ -8,8 +8,10 @@ class App extends Body {
 
 	render() {
 		return View`
-			h4 "Hello World"
-			p "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+			div class: container-fluid {
+				h4 "Hello World"
+				p "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+			}
 		`
 	}
 }
