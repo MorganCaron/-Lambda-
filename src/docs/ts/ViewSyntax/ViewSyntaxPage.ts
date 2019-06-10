@@ -1,6 +1,8 @@
 import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
 import * as Prism from 'prismjs'
 import { Menu } from '../Menu'
+import { Demo } from './example/Demo'
+import DemoTs from '!!raw-loader!./example/Demo.ts'
 
 export class ViewSyntaxPage extends Layout {
 	constructor() {
@@ -12,15 +14,30 @@ export class ViewSyntaxPage extends Layout {
 		return View`
 		div class: row {
 			div class: col-lg-3 {
-				h3 { a click: ${() => Router.navigate('getting-started')} "Getting started" }
 				${new Menu()}
 			}
 			div class: col-lg-9 {
-				h2 "Coming Soon"
+				h2 "View Syntax"
 				p class: lead {
-					"The framework is finished, but this documentation is not yet finished." br;
-					"Come back in a few days, this page will be written." br;
-					"Thanks," br; br; "Morgan."
+					"The syntax used to generate HTML is " strong "specific to ModularDom" ". It is " strong "inspired by the SCSS language" "." br;
+				}
+				p class: "lead text-center" {
+					"The view syntax is as follows:" br;
+					code class: lang-scss "tag attribute: \\"...\\" { ... }" br;
+					
+				}
+				p class: lead {
+					strong "Empty HTML elements" " must end with a " strong "semicolon" "." br;
+					strong "Attributes" " are " strong "optional and cumulative" "." br;
+					strong "Quotation marks (' or \\")" " enclosing the attribute value are " strong "optional if it contains only the characters" " present in this regex: " strong "[@_\-0-9A-Za-z]" "." br;
+					"The " strong "braces enclosing the content" " of the tag are also " strong "optional if the tag contains only one element" "."
+				}
+				h3 "Demo"
+				${new Demo()}
+				h3 "Source Code"
+				h4 "Demo.ts"
+				pre class: lang-ts {
+					code "${DemoTs}"
 				}
 			}
 		}
