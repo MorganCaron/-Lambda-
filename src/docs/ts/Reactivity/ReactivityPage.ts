@@ -4,7 +4,7 @@ import * as Prism from 'prismjs'
 import { Menu } from '../Menu'
 import { Demo } from './example/Demo'
 import DemoTs from '!!raw-loader!./example/Demo.ts'
-import ReactiveTs from '!!raw-loader!Reactive.ts'
+import ReactiveTs from '!!raw-loader!../../../Reactive.ts'
 
 export class ReactivityPage extends Layout {
 	constructor() {
