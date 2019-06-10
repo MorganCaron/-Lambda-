@@ -1,5 +1,5 @@
 import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
-import { HTMLElementEvent } from 'VDOM'
+import { HTMLElementEvent } from 'VDom'
 
 export class Demo extends Layout {
 
