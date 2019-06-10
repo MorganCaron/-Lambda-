@@ -81,8 +81,9 @@ class ModularDomParser {
 		let quotation = ''
 		while (!this.isEndOfValues() && ((!this.isEndOfString() && this.currentChar() !== quoteType) || (this.isEndOfString() && this.indexValue + 1 < this.values.length && typeof this.values[this.indexValue + 1] === 'string'))) {
 			if (!this.isEndOfString()) {
-				quotation += this.currentChar()
-				if (this.currentChar() === '\\') {
+				if (this.currentChar() !== '\\')
+					quotation += this.currentChar()
+				else {
 					++this.indexChar
 					quotation += this.currentChar()
 					if (this.isEndOfString())
