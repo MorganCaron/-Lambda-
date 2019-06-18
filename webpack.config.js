@@ -34,6 +34,12 @@ module.exports = function(env, argv) {
 			presets: ['@babel/preset-env']
 		}
 	}
+	const tsLoader = {
+		loader: 'ts-loader',
+		options: {
+			allowTsInNodeModules: true
+		}
+	}
 	const fileLoader = {
 		loader: 'file-loader',
 		options: {
@@ -75,7 +81,7 @@ module.exports = function(env, argv) {
 				},
 				{
 					test: /\.tsx?$/i,
-					use: [jsLoader, 'ts-loader']
+					use: [jsLoader, tsLoader]
 				},
 				{
 					test: /\.(png|svg|jpe?g|gif)$/i,
