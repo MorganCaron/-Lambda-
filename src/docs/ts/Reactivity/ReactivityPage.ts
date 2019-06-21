@@ -1,7 +1,9 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
 import * as Prism from 'prismjs'
+
+import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
 import { Menu } from '../Menu'
 import { Demo } from './example/Demo'
+
 import DemoTs from '!!raw-loader!./example/Demo.ts'
 import ReactiveTs from '!!raw-loader!Reactive.ts'
 

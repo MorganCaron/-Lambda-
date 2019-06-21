@@ -1,4 +1,4 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
+import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
 
 export class Demo extends Layout {
 	constructor() {

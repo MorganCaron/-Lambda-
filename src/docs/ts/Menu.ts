@@ -1,4 +1,4 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
+import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
 
 export class Menu extends Layout {
 	constructor() {
@@ -16,7 +16,7 @@ export class Menu extends Layout {
 			li { a click: ${() => Router.navigate('reactivity')} "Reactivity" }
 			li { a click: ${() => Router.navigate('router')} "Router" }
 			li { a click: ${() => Router.navigate('writer')} "Writer" }
-			li { a click: ${() => Router.navigate('magical-animations')} "Magical Animations" }
+			li { a click: ${() => Router.navigate('magic-animations')} "Magic Animations" }
 		}
 		`
 	}

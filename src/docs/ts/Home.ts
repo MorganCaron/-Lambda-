@@ -1,4 +1,4 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
+import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
 
 export class Home extends Layout {
 	constructor() {
@@ -19,7 +19,7 @@ export class Home extends Layout {
 				div class: col-md-6 {
 					h3 "Why use it ?"
 					p class: lead {
-						"It stands out from its competitors by its " strong "ease of use" ", its " strong "performance" ", and " strong { a click: ${() => Router.navigate('magical-animations')} "a touch of magic" } "." br;
+						"It stands out from its competitors by its " strong "ease of use" ", its " strong "performance" ", and " strong { a click: ${() => Router.navigate('magic-animations')} "a touch of magic" } "." br;
 						"ModularDom works with a " strong "virtual DOM" " and updates the rendering in the browser only when necessary."
 					}
 				}
