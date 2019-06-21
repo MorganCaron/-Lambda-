@@ -1,5 +1,4 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router } from '../../ModularDom'
-import { Writer, WriterOptions } from '../../Writer'
+import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
 
 export class Header extends Layout {
 	title: Reactive<string>

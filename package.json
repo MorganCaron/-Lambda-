@@ -2,12 +2,12 @@
 	"name": "modulardom",
 	"version": "1.0.0",
 	"description": "TypeScript framework designed to facilitate the creation of single-page web applications",
-	"main": "src/ModularDom.ts",
+	"main": "dist/ModularDom.min.js",
+	"types": "dist/ModularDom.d.ts",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"watch": "webpack-dev-server --mode development --open",
-		"build": "webpack --mode production",
 		"dev": "webpack-dev-server --mode development --open",
+		"build": "webpack --mode production",
 		"prod": "webpack --mode production"
 	},
 	"keywords": [
@@ -29,7 +29,9 @@
 		"babel-plugin-prismjs": "^1.0.2",
 		"clean-webpack-plugin": "^3.0.0",
 		"css-loader": "^3.0.0",
+		"favicons-webpack-plugin": "0.0.9",
 		"file-loader": "^4.0.0",
+		"html-loader": "^0.5.5",
 		"html-webpack-plugin": "^3.2.0",
 		"mini-css-extract-plugin": "^0.7.0",
 		"node-sass": "^4.12.0",

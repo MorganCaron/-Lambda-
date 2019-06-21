@@ -3,18 +3,26 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const path = require('path')
 
-module.exports = function(env, argv) {
+module.exports = (env, argv) => {
 	const dev = (argv.mode === 'development')
 	const prod = !dev
 	const minimize = prod
+	const htmlLoader = {
+		loader: 'html-loader',
+		options: {
+			minimize: true,
+			removeComments: true
+		}
+	}
 	const cssLoaders = [
 		{
 			loader: MiniCssExtractPlugin.loader,
 			options: {
-				hmr: dev,
-			},
+				hmr: dev
+			}
 		},
 		'css-loader',
 		{
@@ -34,28 +42,26 @@ module.exports = function(env, argv) {
 			presets: ['@babel/preset-env']
 		}
 	}
-	const tsLoader = {
-		loader: 'ts-loader',
-		options: {
-			allowTsInNodeModules: true
-		}
-	}
-	const fileLoader = {
-		loader: 'file-loader',
-		options: {
-			name(file) {
-				return 'img/[name].[ext]'
+	const fileLoader = (folder) => {
+		return {
+			loader: 'file-loader',
+			options: {
+				name: '[name].[ext]',
+				outputPath: (dev ? folder : 'docs/' + folder),
+				publicPath: (dev ? folder : 'docs/' + folder)
 			}
 		}
 	}
 	return {
 		mode: argv.mode,
 		entry: {
-			app: ['./src/docs/ts/App.ts']
+			app: ['./src/docs/ts/App.ts', './src/docs/sass/Style.sass'],
+			ModularDom: ['./src/ModularDom.ts']
 		},
 		output: {
 			path: __dirname + '/dist',
-			filename: (dev ? '[name].min.js' : '[name].[contenthash].min.js'),
+			publicPath: (dev ? '' : 'dist'),
+			filename: '[name].min.js'
 		},
 		watch: dev,
 		devServer: {
@@ -63,10 +69,14 @@ module.exports = function(env, argv) {
 		},
 		resolve: {
 			modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-			extensions: ['.css', '.sass', '.scss', '.js', '.jsx', '.ts', '.tsx', '.json', '.png', '.svg', '.jpg', '.jpeg', '.gif', '.txt']
+			extensions: ['.css', '.sass', '.scss', '.js', '.jsx', '.ts', '.tsx', '.json', '.ico', '.png', '.svg', '.jpg', '.jpeg', '.gif', '.webp', '.eot', '.otf', '.ttf', '.woff', '.woff2', '.txt'],
 		},
 		module: {
 			rules: [
+				{
+					test: /\.html$/i,
+					use: htmlLoader
+				},
 				{
 					test: /\.css$/i,
 					use: cssLoaders
@@ -76,16 +86,16 @@ module.exports = function(env, argv) {
 					use: [...cssLoaders, 'sass-loader']
 				},
 				{
-					test: /\.jsx?$/i,
-					use: jsLoader
-				},
-				{
 					test: /\.tsx?$/i,
-					use: [jsLoader, tsLoader]
+					use: [jsLoader, 'ts-loader']
 				},
 				{
-					test: /\.(png|svg|jpe?g|gif)$/i,
-					use: fileLoader
+					test: /\.(ico|png|svg|jpe?g|gif|webp)$/i,
+					use: fileLoader('img/')
+				},
+				{
+					test: /\.(eot|otf|ttf|woff2?)$/i,
+					use: fileLoader('font/')
 				},
 				{
 					test: /\.txt$/i,
@@ -103,23 +113,44 @@ module.exports = function(env, argv) {
 				showErrors: dev
 			}),
 			new MiniCssExtractPlugin({
-				filename: (dev ? '[name].min.css' : '[name].[contenthash].min.css'),
-				chunkFilename: (dev ? '[id].min.css' : '[id].[contenthash].min.css'),
+				filename: '[name].min.css',
+				chunkFilename: '[id].min.css',
 				disable: dev
 			}),
 			new OptimizeCssnanoPlugin({
 				cssnanoOptions: {
 					preset: ['default', {
 						discardComments: {
-							removeAll: true,
-						},
-					}],
-				},
+							removeAll: true
+						}
+					}]
+				}
 			}),
 			new UglifyJsPlugin({
 				test: /\.js($|\?)/i,
 				cache: true,
 				parallel: true
+			}),
+			new FaviconsWebpackPlugin({
+				logo: 'docs/favicon.png',
+				prefix: 'docs/img/icons/',
+				emitStats: false,
+				statsFilename: 'iconstats-[hash].json',
+				persistentCache: false,
+				inject: true,
+				background: '#fff',
+				icons: {
+					android: true,
+					appleIcon: true,
+					appleStartup: true,
+					coast: false,
+					favicons: true,
+					firefox: true,
+					opengraph: false,
+					twitter: true,
+					yandex: true,
+					windows: true
+				}
 			})
 		]
 	}

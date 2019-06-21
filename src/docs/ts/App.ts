@@ -1,11 +1,10 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
-import 'nootstrap'
 import 'prism-themes/themes/prism-atom-dark'
-import '../sass/Style'
+
+import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { Home } from './Home'
-import { InstallationPage, ComponentPage, ViewSyntaxPage, ReactivityPage, RouterPage, MagicalAnimationsPage, WriterPage } from './Pages'
+import { InstallationPage, ComponentPage, ViewSyntaxPage, ReactivityPage, RouterPage, MagicAnimationsPage, WriterPage } from './Pages'
 
 class App extends Body {
 	page: Reactive<Elem>
@@ -23,7 +22,7 @@ class App extends Body {
 		Router.add('reactivity', () => { this.page.value = new ReactivityPage() })
 		Router.add('router', () => { this.page.value = new RouterPage() })
 		Router.add('writer', () => { this.page.value = new WriterPage() })
-		Router.add('magical-animations', () => { this.page.value = new MagicalAnimationsPage() })
+		Router.add('magic-animations', () => { this.page.value = new MagicAnimationsPage() })
 		Router.listen()
 	}
 

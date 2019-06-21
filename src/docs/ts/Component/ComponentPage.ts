@@ -1,8 +1,10 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router } from 'ModularDom'
 import * as Prism from 'prismjs'
+
+import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
 import { Menu } from '../Menu'
 import { Card } from './example/Card'
 import { Demo } from './example/Demo'
+
 import CardTs from '!!raw-loader!./example/Card.ts'
 import DemoTs from '!!raw-loader!./example/Demo.ts'
 
@@ -33,7 +35,7 @@ export class ComponentPage extends Layout {
 				${new Menu()}
 			}
 			div class: col-lg-9 {
-				h2 "A Component"
+				h2 "Component"
 				p class: lead {
 					"A component must " strong "inherit the Layout class" br;
 					"Call the " strong "super constructor" " by defining a " strong "tag name" br;
