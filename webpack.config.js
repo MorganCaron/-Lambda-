@@ -55,7 +55,7 @@ module.exports = (env, argv) => {
 	return {
 		mode: argv.mode,
 		entry: {
-			app: ['./src/docs/ts/App.ts', './src/docs/sass/style.sass'],
+			app: ['./src/docs/ts/App.ts', './src/docs/sass/Style.sass'],
 			ModularDom: ['./src/ModularDom.ts']
 		},
 		output: {
