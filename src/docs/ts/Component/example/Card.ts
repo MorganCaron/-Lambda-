@@ -13,7 +13,7 @@ export class Card extends Layout {
 		this.update()
 	}
 
-	render() {
+	render(): Elem[] {
 		return View`
 			h5 "${this.title}"
 			img src: "${this.image}" alt: "${this.title}";

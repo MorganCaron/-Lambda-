@@ -21,7 +21,7 @@ export class Demo extends Layout {
 		this.update()
 	}
 
-	render() {
+	render(): Elem[] {
 		return View`
 			div class: container-fluid {
 				h4 "Cards"

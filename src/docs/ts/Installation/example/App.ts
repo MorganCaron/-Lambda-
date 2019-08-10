@@ -6,7 +6,7 @@ class App extends Body {
 		this.update()
 	}
 
-	render() {
+	render(): Elem[] {
 		return View`
 			div class: container-fluid {
 				h4 "Hello World"

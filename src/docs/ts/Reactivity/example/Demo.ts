@@ -32,7 +32,7 @@ export class Demo extends Layout {
 		this.operand1.value = parseInt(event.target.value, 10)
 	}
 
-	render() {
+	render(): Elem[] {
 		return View`
 			div class: container-fluid {
 				h4 "Addition"
