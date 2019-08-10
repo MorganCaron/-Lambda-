@@ -13,9 +13,9 @@ export class Demo extends Layout {
 				p class: lead "Simple line"
 				hr;
 				p {
-					"Multi lines" br;
-					"Multi lines" br;
-					"Multi lines"
+					"Line 1" br;
+					"Line 2" br;
+					"Line 3"
 				}
 			}
 		`

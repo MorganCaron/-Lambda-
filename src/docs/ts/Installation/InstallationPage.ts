@@ -23,7 +23,7 @@ export class InstallationPage extends Layout {
 				p class: lead {
 					strong "ModularDom needs TypeScript to work."
 					" We recommend the use of " strong { a href: "https://webpack.js.org/" target: _blank "Webpack" " to compile the TypeScript." }
-					" You will find a " strong { "Starter " a href: "https://github.com/MorganCaron/Webpack-Starter" target: _blank "here" }
+					" You will find " strong { "a tool to simplify the configuration of a Webpack project " a href: "https://github.com/MorganCaron/webpack-config-generator" target: _blank "here" } "."
 				}
 				h2 "A Simple Project"
 				p class: lead {

@@ -22,7 +22,12 @@ export class ReactivityPage extends Layout {
 			div class: col-lg-9 {
 				h2 "Reactivity"
 				p class: lead {
-					"The Reactive object allows you to add reactivity to your web-app." br;
+					"Reactivity consists in " strong "propagating information from a reactive source" " (modification of a variable, user input, etc.) " strong "to the elements dependent on this source" " (from causes to consequences)." br;
+					"It is very popular for creating pages that automatically update when data is changed." br;
+				}
+				p class: lead {
+					"ModularDom allows you to " strong "create reactive sources" " and " strong "attach functions" " to them." br;
+					"These functions will be " strong "performed when the value is changed" "." br;
 					"Below you will find a list of methods and examples of use."
 				}
 				h3 "Methods"

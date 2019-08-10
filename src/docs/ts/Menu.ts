@@ -16,7 +16,7 @@ export class Menu extends Layout {
 			li { a click: ${() => Router.navigate('reactivity')} "Reactivity" }
 			li { a click: ${() => Router.navigate('router')} "Router" }
 			li { a click: ${() => Router.navigate('writer')} "Writer" }
-			li { a click: ${() => Router.navigate('magic-animations')} "Magic Animations" }
+			li { a click: ${() => Router.navigate('animations')} "Animations" }
 		}
 		`
 	}

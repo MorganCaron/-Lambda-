@@ -4,7 +4,7 @@ import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions 
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { Home } from './Home'
-import { InstallationPage, ComponentPage, ViewSyntaxPage, ReactivityPage, RouterPage, MagicAnimationsPage, WriterPage } from './Pages'
+import { InstallationPage, ComponentPage, ViewSyntaxPage, ReactivityPage, RouterPage, AnimationsPage, WriterPage } from './Pages'
 
 class App extends Body {
 	page: Reactive<Elem>
@@ -22,7 +22,7 @@ class App extends Body {
 		Router.add('reactivity', () => { this.page.value = new ReactivityPage() })
 		Router.add('router', () => { this.page.value = new RouterPage() })
 		Router.add('writer', () => { this.page.value = new WriterPage() })
-		Router.add('magic-animations', () => { this.page.value = new MagicAnimationsPage() })
+		Router.add('animations', () => { this.page.value = new AnimationsPage() })
 		Router.listen()
 	}
 

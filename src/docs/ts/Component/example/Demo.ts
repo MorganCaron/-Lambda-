@@ -27,7 +27,7 @@ export class Demo extends Layout {
 				h4 "Cards"
 				div class: row {
 					${this.articles.flatMap(article => View`
-					div class: "col-lg-3 col-md-4 col-sm-6" {
+					div class: "col-md-4 col-sm-6" {
 						${new Card(article.title, article.description, article.image)}
 					}`)}
 				}
