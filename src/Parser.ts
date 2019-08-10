@@ -131,13 +131,15 @@ class ModularDomParser {
 		return attrs
 	}
 
-	parseElement(): Elem {
+	parseElement(): Elem | null {
 		const value = this.values[this.indexValue]
 		if (typeof value === 'string') {
 			if ('\'"'.includes(this.currentChar()))
 				return new VDOMText(this.parseQuote())
 			else {
 				const tag = this.getNextWord()
+				if (tag.length === 0 && this.isEndOfString())
+					return null
 				if (tag.length === 0)
 					throw new Error('Syntax error: Tag name is missing.')
 				this.parseSpace()
@@ -162,6 +164,8 @@ class ModularDomParser {
 		}
 		else if (value instanceof VDOMObject)
 			return value
+		else if (value === undefined || value === null)
+			return null
 		else
 			throw new Error('Syntax error: Use of a function out of context')
 	}
@@ -178,7 +182,9 @@ class ModularDomParser {
 		if (!this.isEndOfValues())
 			jumpToNextElem()
 		while (!this.isEndOfValues() && !(untilBracket && this.isString() && !this.isEndOfString() && this.currentChar() === '}')) {
-			elems.push(this.parseElement())
+			const element = this.parseElement()
+			if (element)
+				elems.push(element)
 			if (typeof this.currentValue() !== 'string')
 				this.gotoNextValue()
 			jumpToNextElem()
