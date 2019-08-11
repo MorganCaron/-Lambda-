@@ -106,14 +106,14 @@ class Head extends VDOMObject {
 }
 
 export class Body extends VDOMObject {
-	head: Head
+	_head: Head
 	animationOptions: KeyframeAnimationOptions
 
 	constructor(animationOptions: KeyframeAnimationOptions = undefined) {
 		super(document.body)
 		this.animationOptions = { duration: 500, easing: 'ease-in-out', ...animationOptions }
 		this.el.innerHTML = ''
-		this.head = new Head()
+		this._head = new Head()
 	}
 
 	compareTagName(node0: Node, node1: Node) {
@@ -191,4 +191,8 @@ export class Body extends VDOMObject {
 		return []
 	}
 	afterRender() { }
+
+	get head(): Head {
+		return this._head
+	}
 }

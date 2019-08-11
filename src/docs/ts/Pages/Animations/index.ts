@@ -1,7 +1,7 @@
 import * as Prism from 'prismjs'
 
 import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
-import { Menu } from '../Menu'
+import { Menu } from '../../Layouts'
 
 export class AnimationsPage extends Layout {
 	constructor() {

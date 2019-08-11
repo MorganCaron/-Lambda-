@@ -1,10 +1,8 @@
 import 'prism-themes/themes/prism-atom-dark'
 
 import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
-import { Header } from './Header'
-import { Footer } from './Footer'
-import { Home } from './Home'
-import { InstallationPage, ComponentPage, ViewSyntaxPage, ReactivityPage, RouterPage, AnimationsPage, WriterPage } from './Pages'
+import { Header, Footer, Menu } from './Layouts'
+import { HomePage, InstallationPage, ComponentPage, ViewSyntaxPage, ReactivityPage, RouterPage, AnimationsPage, WriterPage } from './Pages'
 
 class App extends Body {
 	page: Reactive<Elem>
@@ -15,7 +13,7 @@ class App extends Body {
 		this.page.subscribe(this.update.bind(this))
 
 		Router.mode = 'hash'
-		Router.add('', () => { this.page.value = new Home() })
+		Router.add('', () => { this.page.value = new HomePage() })
 		Router.add('installation', () => { this.page.value = new InstallationPage() })
 		Router.add('component', () => { this.page.value = new ComponentPage() })
 		Router.add('view-syntax', () => { this.page.value = new ViewSyntaxPage() })

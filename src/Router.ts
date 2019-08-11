@@ -46,8 +46,12 @@ class RouterController {
 		}
 	}
 
-	check(path: string = null): void {
-		const fragment = path || this.getFragment()
+	check(regexPath: string): boolean {
+		const fragment = this.getFragment()
+		return (fragment.match('^' + regexPath + '$') != null)
+	}
+
+	open(fragment: string = null): void {
 		for (let i = 0; i < this.routes.length; ++i) {
 			const route = this.routes[i]
 			let match = fragment.match('^' + route.regex + '$')
@@ -62,7 +66,7 @@ class RouterController {
 		const updateRoute = () => {
 			if (this.currentFragment !== this.getFragment()) {
 				this.currentFragment = this.getFragment()
-				this.check(this.currentFragment)
+				this.open(this.currentFragment)
 			}
 		}
 		clearInterval(this.interval)
@@ -77,7 +81,7 @@ class RouterController {
 			window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path
 		if (this.currentFragment !== this.getFragment()) {
 			this.currentFragment = this.getFragment()
-			this.check(this.currentFragment)
+			this.open(this.currentFragment)
 		}
 	}
 }
