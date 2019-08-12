@@ -31,8 +31,14 @@ export class VDOMObject {
 						const listener = attrs[attr] as EventListener
 						listener(...event)
 					})
-					if (attr === 'click' && this.el.tagName === 'A')
-						this.el.setAttribute('href', '#')
+					if (attr === 'click') {
+						if (this.el.tagName === 'A')
+							this.el.setAttribute('href', '#')
+						else {
+							const style = this.el.getAttribute('style')
+							this.el.setAttribute('style', 'cursor: pointer;' + (style ? style : ''))
+						}
+					}
 				}
 			}
 	}

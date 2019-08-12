@@ -1,35 +1,27 @@
 import * as Prism from 'prismjs'
 
 import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
-import { Menu } from '../../Layouts'
 
 export class AnimationsPage extends Layout {
 	constructor() {
-		super(Tag`div class: container`)
+		super(Tag`div`)
 		this.update()
 	}
 
 	render() {
 		return View`
-		div class: row {
-			div class: col-lg-3 {
-				${new Menu()}
+			h2 "Animations"
+			p class: lead {
+				"During rendering, ModularDom notices that " strong "elements are already present" ". In this case, it animates the element so that " strong "it moves to its new position" "." br;
+				br;
+				"The following examples are structured to correspond to this type of animation. The code is made visible so that you see that " strong "no animation is planned" "."
 			}
-			div class: col-lg-9 {
-				h2 "Animations"
-				p class: lead {
-					"During rendering, ModularDom notices that " strong "elements are already present" ". In this case, it animates the element so that " strong "it moves to its new position" "." br;
-					br;
-					"The following examples are structured to correspond to this type of animation. The code is made visible so that you see that " strong "no animation is planned" "."
-				}
-				hr;
-				p class: lead {
-					"The framework is finished, but this documentation is not yet finished." br;
-					"Come back in a few days, this page will be written." br;
-					"Thanks," br; br; "Morgan."
-				}
+			hr;
+			p class: lead {
+				"The framework is finished, but this documentation is not yet finished." br;
+				"Come back in a few days, this page will be written." br;
+				"Thanks," br; br; "Morgan."
 			}
-		}
 		`
 	}
 

@@ -2,13 +2,13 @@ import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions 
 
 export class HomePage extends Layout {
 	constructor() {
-		super(Tag`div class: 'container text-center'`)
+		super(Tag`div`)
 		this.update()
 	}
 
 	render() {
 		return View`
-			div class: "row text-left" {
+			div class: "row" {
 				div class: col-md-6 {
 					h3 "What is ModularDom ?"
 					p class: lead {

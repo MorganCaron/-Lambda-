@@ -5,7 +5,7 @@ export class Header extends Layout {
 	writer: Writer
 
 	constructor() {
-		super(Tag`header class: 'darkcyan text-center'`)
+		super(Tag`header`)
 		this.title = new Reactive('<ModularDom/>')
 		this.title.subscribe(this.update.bind(this))
 		this.update()
@@ -23,7 +23,9 @@ export class Header extends Layout {
 
 	render() {
 		return View`
+		div class: 'tilt-right-5 darkcyan' {
 			h1 click: ${() => Router.navigate('')} "${this.title.value}"
+		}
 		`
 	}
 }

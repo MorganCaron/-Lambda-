@@ -28,7 +28,16 @@ class App extends Body {
 		if (!this.page.value) return []
 		return View`
 			${new Header()}
-			${this.page.value}
+			div class: container-fluid {
+				div class: row {
+					div class: 'col-lg-3 no-gutters' {
+						${new Menu()}
+					}
+					div class: col-lg-9 {
+						${this.page.value}
+					}
+				}
+			}
 			${new Footer()}
 		`
 	}

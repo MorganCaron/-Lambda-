@@ -2,22 +2,23 @@ import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions 
 
 export class Menu extends Layout {
 	constructor() {
-		super(Tag`nav class: 'muted flex-column'`)
+		super(Tag`nav class: 'sticky muted'`)
 		this.update()
 	}
 
 	render() {
 		return View`
-		h3 "Getting Started"
-		ul {
-			li { a click: ${() => Router.navigate('installation')} "Installation" }
-			li { a click: ${() => Router.navigate('component')} "Component" }
-			li { a click: ${() => Router.navigate('view-syntax')} "View Syntax" }
-			li { a click: ${() => Router.navigate('reactivity')} "Reactivity" }
-			li { a click: ${() => Router.navigate('router')} "Router" }
-			li { a click: ${() => Router.navigate('writer')} "Writer" }
-			li { a click: ${() => Router.navigate('animations')} "Animations" }
-		}
+			h3 "Getting Started"
+			ul {
+				li click: ${() => Router.navigate('')} "Home"
+				li click: ${() => Router.navigate('installation')} "Installation"
+				li click: ${() => Router.navigate('component')} "Component"
+				li click: ${() => Router.navigate('view-syntax')} "View Syntax"
+				li click: ${() => Router.navigate('reactivity')} "Reactivity"
+				li click: ${() => Router.navigate('router')} "Router"
+				li click: ${() => Router.navigate('writer')} "Writer"
+				li click: ${() => Router.navigate('animations')} "Animations"
+			}
 		`
 	}
 }
