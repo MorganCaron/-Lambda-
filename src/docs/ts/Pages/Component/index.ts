@@ -17,7 +17,7 @@ export class ComponentPage extends Layout {
 	articles: Article[]
 
 	constructor() {
-		super(Tag`div`)
+		super(Tag`div class: container-fluid`)
 		this.articles = [
 			{ title: 'Title', description: 'Description', image: 'https://picsum.photos/400/300?random=1' },
 			{ title: 'Title', description: 'Description', image: 'https://picsum.photos/400/300?random=2' },
@@ -26,7 +26,7 @@ export class ComponentPage extends Layout {
 		this.update()
 	}
 
-	render() {
+	render(): Elem[] {
 		return View`
 			h2 "Component"
 			p class: lead {

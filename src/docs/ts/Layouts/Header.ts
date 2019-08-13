@@ -21,11 +21,11 @@ export class Header extends Layout {
 		setTimeout(writerHelloWorld, 5000)
 	}
 
-	render() {
+	render(): Elem[] {
 		return View`
-		div class: 'tilt-right-5 darkcyan' {
-			h1 click: ${() => Router.navigate('')} "${this.title.value}"
-		}
+			div class: 'tilt-right-5 darkcyan' {
+				h1 click: ${() => Router.navigate('')} "${this.title.value}"
+			}
 		`
 	}
 }

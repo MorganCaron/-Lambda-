@@ -80,10 +80,7 @@ export class Layout extends VDOMObject {
 		this.setContent(this.render())
 		this.afterRender()
 	}
-	render(): Elem[] {
-		console.log(`${name}.render() not implemented`)
-		return []
-	}
+	render(): Elem[] { return [] }
 	afterRender() { }
 }
 
@@ -192,13 +189,7 @@ export class Body extends VDOMObject {
 		this.setContent(this.render())
 		this.afterRender()
 	}
-	render(): Elem[] {
-		console.log(`${name}.render() not implemented`)
-		return []
-	}
+	render(): Elem[] { return [] }
 	afterRender() { }
-
-	get head(): Head {
-		return this._head
-	}
+	get head(): Head { return this._head }
 }

@@ -7,11 +7,11 @@ import AppTs from '!!raw-loader!./example/App.ts'
 
 export class InstallationPage extends Layout {
 	constructor() {
-		super(Tag`div`)
+		super(Tag`div class: container-fluid`)
 		this.update()
 	}
 
-	render() {
+	render(): Elem[] {
 		return View`
 			h2 "Installation"
 			p class: lead {

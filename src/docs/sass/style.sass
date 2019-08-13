@@ -1,10 +1,16 @@
 @import nootstrap
 
++scrollbar(.75rem, darkcyan, #1d1f21)
+
 \:root
 	--default-bg-color: white
 	--default-color: black
 	--muted-bg-color: #1d1f21
 	--muted-color: white
+
+header .tilt-right-5
+	padding-left: 3rem
+	box-shadow: 10px 5px 5px rgba($darkgrey, .5)
 
 h1
 	font-size: 4rem
@@ -48,12 +54,14 @@ hr
 p a
 	color: $blue
 	+underline-hover($blue)
-	@extend .underlined
 	&:hover
 		color: darken($blue, 15%)
+a.lead a
+	@extend .underlined
 
 nav
 	padding: .5rem
+	box-shadow: 10px 5px 5px rgba($darkgrey, .5)
 	> ul
 		margin-bottom: .5rem
 		list-style: none
@@ -129,8 +137,6 @@ pre
 input
 	padding: .25rem
 	border: 1px solid grey
-
-+scrollbar(1rem, darkcyan, #333)
 
 .info, .warning
 	user-select: text

@@ -19,7 +19,7 @@ class ModularDomParser {
 		return ' \t\n'.includes(char)
 	}
 	isChar(char: string): boolean {
-		return /[@_\-0-9A-Za-z]/.test(char)
+		return /[\.@_\-0-9A-Za-z]/.test(char)
 	}
 	isString(): boolean {
 		return (typeof this.currentValue() === 'string')

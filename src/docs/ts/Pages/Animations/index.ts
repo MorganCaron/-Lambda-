@@ -4,11 +4,11 @@ import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions 
 
 export class AnimationsPage extends Layout {
 	constructor() {
-		super(Tag`div`)
+		super(Tag`div class: container-fluid`)
 		this.update()
 	}
 
-	render() {
+	render(): Elem[] {
 		return View`
 			h2 "Animations"
 			p class: lead {

@@ -7,11 +7,11 @@ import DemoTs from '!!raw-loader!./example/Demo.ts'
 
 export class ViewSyntaxPage extends Layout {
 	constructor() {
-		super(Tag`div`)
+		super(Tag`div class: container-fluid`)
 		this.update()
 	}
 
-	render() {
+	render(): Elem[] {
 		return View`
 			h2 "View Syntax"
 			p class: lead {
@@ -33,7 +33,7 @@ export class ViewSyntaxPage extends Layout {
 				code class: lang-scss "p \\"Text\\"" " for " code class: lang-html "<p>Text</p>" br;
 				code class: lang-scss "p class: Class1 \\"Text\\"" " for " code class: lang-html "<p class=\\"Class1\\">Text</p>"
 			}
-			p class: lead { strong "Quotation marks (' or \\")" " enclosing the attribute value are " strong "optional if it contains only the characters" " present in this regex: " strong "[@_\-0-9A-Za-z]" "." }
+			p class: lead { strong "Quotation marks (' or \\")" " enclosing the attribute value are " strong "optional if it contains only the characters" " present in this regex: " strong "[\.@_\-0-9A-Za-z]" "." }
 			p class: text-center {
 				code class: lang-scss "p class: Class1 \\"Text\\"" " for " code class: lang-html "<p class=\\"Class1\\">Text</p>" br;
 				code class: lang-scss "p class: \\"Class1 Class2\\" \\"Text\\"" " for " code class: lang-html "<p class=\\"Class1 Class2\\">Text</p>"

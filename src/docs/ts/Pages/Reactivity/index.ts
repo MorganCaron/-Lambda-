@@ -8,11 +8,11 @@ import ReactiveTs from '!!raw-loader!Reactive.ts'
 
 export class ReactivityPage extends Layout {
 	constructor() {
-		super(Tag`div`)
+		super(Tag`div class: container-fluid`)
 		this.update()
 	}
 
-	render() {
+	render(): Elem[] {
 		return View`
 			h2 "Reactivity"
 			p class: lead {

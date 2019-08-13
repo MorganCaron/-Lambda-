@@ -24,7 +24,7 @@ class App extends Body {
 		Router.listen()
 	}
 
-	render() {
+	render(): Elem[] {
 		if (!this.page.value) return []
 		return View`
 			${new Header()}

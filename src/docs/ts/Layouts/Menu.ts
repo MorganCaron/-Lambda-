@@ -6,7 +6,7 @@ export class Menu extends Layout {
 		this.update()
 	}
 
-	render() {
+	render(): Elem[] {
 		return View`
 			h3 "Getting Started"
 			ul {
