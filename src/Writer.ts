@@ -83,7 +83,7 @@ export class Writer {
 		this.target = string
 	}
 
-	write(newString: string, options: WriterOptions, callback: () => void): void {
+	write(newString: string, options: WriterOptions, callback: () => void = null): void {
 		const wagnerFischerResult = wagnerFischer(this.target.value, newString, { replace: options.replace })
 		if (!wagnerFischerResult.distance) return
 		const interval = options.duration ? options.duration / wagnerFischerResult.distance : options.interval
@@ -107,6 +107,7 @@ export class Writer {
 				++posSrc
 			}
 		}
-		setTimeout(callback, wagnerFischerResult.distance * interval)
+		if (callback)
+			setTimeout(callback, wagnerFischerResult.distance * interval)
 	}
 }

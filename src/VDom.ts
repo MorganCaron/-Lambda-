@@ -9,7 +9,8 @@ export interface HTMLElementEvent<T extends HTMLElement> extends Event {
 
 export class VDOMText {
 	el: Text
-	constructor(content: string = '') { this.el = document.createTextNode(content) }
+	constructor(text: string = '') { this.el = document.createTextNode(text) }
+	setText(text: string): void { this.el.textContent = text }
 	render(): Text { return this.el }
 }
 
@@ -64,6 +65,8 @@ export class VDOMObject {
 		this.clearChilds()
 		this.addChilds(contentArray)
 	}
+
+	setText(text: string): void { this.setContent(text) }
 }
 
 export class VDOMElem extends VDOMObject {

@@ -11,7 +11,6 @@
 body
 	background-image: url(../img/triangleTiles.svg)
 	background-size: 66vw 66vw
-	background-position: 25% 25%
 
 header .tilt-right-5
 	padding-left: 3rem
@@ -62,7 +61,7 @@ p a
 	+underline-hover($blue)
 	&:hover
 		color: darken($blue, 15%)
-a.lead a
+p.lead a
 	@extend .underlined
 
 nav
@@ -96,6 +95,9 @@ nav
 				&::before
 					left: -2em
 					transform: scale(1.5)
+			&.current
+				background-color: rgba(white, .75)
+				color: black
 
 pre[class*=language-], code[class*=language-]
 	border-radius: 0 !important
@@ -164,16 +166,7 @@ input
 	50%
 		opacity: 0
 
-.terminal
-	width: 100%
-	minHeight: 200px
-	overflow: hidden
-	backgroundColor: black
-	color: white
-	fontFamily: monospace
-	.line
-		margin: 0
-		&:last-child::after
-			content: '█'
-			animation: blinker .7s step-start infinite
-			color: white
+.writer-demo code:last-child::after
+		content: '█'
+		animation: blinker .7s step-start infinite
+		color: white

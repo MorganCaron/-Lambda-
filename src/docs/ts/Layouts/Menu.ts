@@ -10,14 +10,14 @@ export class Menu extends Layout {
 		return View`
 			h3 "Getting Started"
 			ul {
-				li click: ${() => Router.navigate('')} "Home"
-				li click: ${() => Router.navigate('installation')} "Installation"
-				li click: ${() => Router.navigate('component')} "Component"
-				li click: ${() => Router.navigate('view-syntax')} "View Syntax"
-				li click: ${() => Router.navigate('reactivity')} "Reactivity"
-				li click: ${() => Router.navigate('router')} "Router"
-				li click: ${() => Router.navigate('writer')} "Writer"
-				li click: ${() => Router.navigate('animations')} "Animations"
+				li click: ${() => Router.navigate('')} class: "${Router.check('') ? 'current' : ''}" "Home"
+				li click: ${() => Router.navigate('installation')} class: "${Router.check('installation') ? 'current' : ''}" "Installation"
+				li click: ${() => Router.navigate('component')} class: "${Router.check('component') ? 'current' : ''}" "Component"
+				li click: ${() => Router.navigate('view-syntax')} class: "${Router.check('view-syntax') ? 'current' : ''}" "View Syntax"
+				li click: ${() => Router.navigate('reactivity')} class: "${Router.check('reactivity') ? 'current' : ''}" "Reactivity"
+				li click: ${() => Router.navigate('router')} class: "${Router.check('router') ? 'current' : ''}" "Router"
+				li click: ${() => Router.navigate('writer')} class: "${Router.check('writer') ? 'current' : ''}" "Writer"
+				li click: ${() => Router.navigate('animations')} class: "${Router.check('animations') ? 'current' : ''}" "Animations"
 			}
 		`
 	}
