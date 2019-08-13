@@ -2,7 +2,7 @@ import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions 
 
 export class Footer extends Layout {
 	constructor() {
-		super(Tag`footer class: 'default text-center'`)
+		super(Tag`footer class: 'text-center'`)
 		this.update()
 	}
 
