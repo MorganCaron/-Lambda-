@@ -12,6 +12,7 @@ export class Demo extends Layout {
 				h4 "Title"
 				p class: lead "Simple line"
 				hr;
+				img src: 'https://picsum.photos/400/300?random=4' style: 'width: 200px; height: auto';
 				p {
 					"Line 1" br;
 					"Line 2" br;

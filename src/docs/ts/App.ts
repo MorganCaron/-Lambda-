@@ -18,7 +18,7 @@ class App extends Body {
 		Router.add('component', () => { this.page.value = new ComponentPage() })
 		Router.add('view-syntax', () => { this.page.value = new ViewSyntaxPage() })
 		Router.add('reactivity', () => { this.page.value = new ReactivityPage() })
-		Router.add('router', () => { this.page.value = new RouterPage() })
+		Router.add('router(\\/(.*)\\/edit\\/(.*))?', (...parameters: string[]) => { this.page.value = new RouterPage(parameters) })
 		Router.add('writer', () => { this.page.value = new WriterPage() })
 		Router.add('animations', () => { this.page.value = new AnimationsPage() })
 		Router.listen()

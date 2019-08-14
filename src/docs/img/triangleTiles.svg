@@ -150,5 +150,5 @@
 		</pattern>
 	</defs>
 	<rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-triangles0)" />
-	<rect x="0" y="70.71" width="100%" height="100%" fill="url(#pattern-triangles1)" />
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-triangles1)" />
 </svg>

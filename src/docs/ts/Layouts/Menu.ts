@@ -8,7 +8,7 @@ export class Menu extends Layout {
 
 	render(): Elem[] {
 		return View`
-			h3 "Getting Started"
+			h3 "Documentation"
 			ul {
 				li click: ${() => Router.navigate('')} class: "${Router.check('') ? 'current' : ''}" "Home"
 				li click: ${() => Router.navigate('installation')} class: "${Router.check('installation') ? 'current' : ''}" "Installation"
