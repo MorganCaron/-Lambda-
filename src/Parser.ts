@@ -1,11 +1,11 @@
 import { Elem, Attributes, VDOMText, VDOMObject, VDOMElem } from './VDom'
 
 class ModularDomParser {
-	values: (string | VDOMObject | EventListener)[]
+	values: (string | Elem | EventListener)[]
 	indexValue: number
 	indexChar: number
 
-	currentValue(): (string | VDOMObject | EventListener) {
+	currentValue(): (string | Elem | EventListener) {
 		return this.values[this.indexValue]
 	}
 	currentString(): string {
@@ -23,6 +23,9 @@ class ModularDomParser {
 	}
 	isString(): boolean {
 		return (typeof this.currentValue() === 'string')
+	}
+	isVDOMText(): boolean {
+		return (this.currentValue() instanceof VDOMText)
 	}
 	isEndOfString(): boolean {
 		return this.indexChar >= this.currentString().length
@@ -79,25 +82,25 @@ class ModularDomParser {
 			throw new Error(`Syntax error: Character " ou ' is missing.`)
 		++this.indexChar
 		let quotation = ''
-		while (!this.isEndOfValues() && ((!this.isEndOfString() && this.currentChar() !== quoteType) || (this.isEndOfString() && this.indexValue + 1 < this.values.length && typeof this.values[this.indexValue + 1] === 'string'))) {
+		const isQuote = () => (!this.isEndOfString() && this.currentChar() === quoteType)
+		const nextValueIsAString = () => (this.indexValue + 1 < this.values.length && typeof this.values[this.indexValue + 1] === 'string')
+		while (!this.isEndOfValues() && this.isString() && !isQuote()) {
 			if (!this.isEndOfString()) {
-				if (this.currentChar() !== '\\')
-					quotation += this.currentChar()
-				else {
+				if (this.currentChar() === '\\') {
 					++this.indexChar
-					quotation += this.currentChar()
 					if (this.isEndOfString())
 						throw new Error(`Syntax error: Character \\ must be followed by a character to escape.`)
 				}
+				quotation += this.currentChar()
 				++this.indexChar
 			}
-			else {
+			else if (nextValueIsAString()) {
 				quotation += this.values[++this.indexValue] as string
 				this.gotoNextValue()
 			}
 		}
-		if (this.isEndOfValues() || this.isEndOfString() || this.currentChar() !== quoteType)
-			throw new Error(`Syntax error: A closing brace ${quoteType} is missing in "${quotation}".`)
+		if (this.isEndOfValues() || !isQuote())
+			throw new Error(`Syntax error: A closing brace ${quoteType} is missing after "${quotation}".`)
 		++this.indexChar
 		return quotation
 	}
@@ -133,6 +136,8 @@ class ModularDomParser {
 
 	parseElement(): Elem | null {
 		const value = this.values[this.indexValue]
+		if (value instanceof VDOMText)
+			return value
 		if (typeof value === 'string') {
 			if ('\'"'.includes(this.currentChar()))
 				return new VDOMText(this.parseQuote())
@@ -141,7 +146,7 @@ class ModularDomParser {
 				if (tag.length === 0 && this.isEndOfString())
 					return null
 				if (tag.length === 0)
-					throw new Error('Syntax error: Tag name is missing.')
+					throw new Error(`Syntax error: Tag name is missing in "${value}".`)
 				this.parseSpace()
 				const attrs = this.parseAttributes()
 				let content: string | Elem[]
@@ -173,14 +178,15 @@ class ModularDomParser {
 	parseBlock(untilBracket: boolean = false): Elem[] {
 		let elems: Elem[] = []
 		const jumpToNextElem = () => {
-			if (this.isString()) {
+			if (!this.isEndOfValues() && this.isString()) {
 				this.parseSpace()
-				if (this.isEndOfString())
-					++this.indexValue
+				if (this.isEndOfString()) {
+					this.gotoNextValue()
+					jumpToNextElem()
+				}
 			}
 		}
-		if (!this.isEndOfValues())
-			jumpToNextElem()
+		jumpToNextElem()
 		while (!this.isEndOfValues() && !(untilBracket && this.isString() && !this.isEndOfString() && this.currentChar() === '}')) {
 			const element = this.parseElement()
 			if (element)
@@ -191,14 +197,14 @@ class ModularDomParser {
 		}
 		if (untilBracket) {
 			if (this.isEndOfValues() || !this.isString() || this.isEndOfString() || this.currentChar() !== '}')
-				throw new Error('Syntax error: Character \'}\' is missing.')
+				throw new Error(`Syntax error: Character \'}\' is missing at the end of "${this.values}".`)
 			++this.indexChar
 			this.parseSpace()
 		}
 		return elems
 	}
 
-	parseView(values: (string | VDOMObject | EventListener)[]): Elem[] {
+	parseView(values: (string | Elem | EventListener)[]): Elem[] {
 		this.values = values
 		this.indexValue = 0
 		this.indexChar = 0
@@ -219,13 +225,11 @@ class ModularDomParser {
 }
 
 export const View = (literals: TemplateStringsArray, ...placeholders: (number | string | Elem | Elem[] | EventListener)[]): Elem[] => {
-	const convertPlaceholder = (placeholder: (number | string | Elem | Elem[] | EventListener)): (string | VDOMObject | EventListener)[] => {
+	const convertPlaceholder = (placeholder: (number | string | Elem | Elem[] | EventListener)): (string | Elem | EventListener)[] => {
 		if (typeof placeholder === 'number')
 			return [placeholder.toString()]
-		if (placeholder instanceof VDOMText)
-			return [(placeholder as VDOMText).el.wholeText]
 		if (Array.isArray(placeholder))
-			return placeholder.map(elem => (elem instanceof VDOMText) ? (elem as VDOMText).el.wholeText : elem)
+			return placeholder
 		return [placeholder]
 	}
 	let indexLiteral = 0
