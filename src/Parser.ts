@@ -228,8 +228,12 @@ export const View = (literals: TemplateStringsArray, ...placeholders: (number | 
 	const convertPlaceholder = (placeholder: (number | string | Elem | Elem[] | EventListener)): (string | Elem | EventListener)[] => {
 		if (typeof placeholder === 'number')
 			return [placeholder.toString()]
-		if (Array.isArray(placeholder))
-			return placeholder
+		if (Array.isArray(placeholder)) {
+			placeholder = placeholder.filter(elem => (elem != null && elem != undefined))
+			return placeholder.length == 0 ? [''] : placeholder
+		}
+		if (placeholder == null || placeholder == undefined)
+			return ['']
 		return [placeholder]
 	}
 	let indexLiteral = 0
