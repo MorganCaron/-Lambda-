@@ -42,6 +42,7 @@ export class Demo extends Layout {
 			pre class: lang-ts {
 				code "${this.code.value}"
 			}
+			${!this.animationInProgress.value ? View`button click: ${this.launchAnimation.bind(this)} class: btn "Restart"` : ''}
 		`
 	}
 

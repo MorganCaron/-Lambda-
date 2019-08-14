@@ -6,15 +6,23 @@ interface Route {
 class RouterController {
 	routes: Route[]
 	root: string
-	mode: string
+	_mode: 'history' | 'hash'
 	currentFragment: string
 	interval: number
 
-	constructor(mode: string = undefined) {
+	constructor(mode: 'history' | 'hash' = undefined) {
 		this.routes = []
 		this.root = '/'
-		this.mode = mode || !!(history.pushState) ? 'history' : 'hash'
+		this._mode = mode || !!(history.pushState) ? 'history' : 'hash'
 		this.currentFragment = null
+	}
+
+	set mode(mode: 'history' | 'hash') {
+		this._mode = !!(history.pushState) ? mode : 'hash'
+	}
+
+	get mode(): 'history' | 'hash' {
+		return this._mode
 	}
 
 	clearSlashes(path: string): string {
@@ -23,7 +31,7 @@ class RouterController {
 
 	getFragment(): string {
 		let fragment = ''
-		if (this.mode === 'history') {
+		if (this._mode === 'history') {
 			fragment = this.clearSlashes(decodeURI(location.pathname + location.search))
 			fragment = fragment.replace(/\?(.*)$/, '')
 			fragment = this.root != '/' ? fragment.replace(this.root, '') : fragment
@@ -34,7 +42,18 @@ class RouterController {
 		return this.clearSlashes(fragment)
 	}
 
-	add(regex: string, controller: () => void): void {
+	openFragment(fragment: string): void {
+		for (let i = 0; i < this.routes.length; ++i) {
+			const route = this.routes[i]
+			let match = fragment.match('^' + route.regex + '$')
+			if (match) {
+				match.shift()
+				route.controller.apply({}, match)
+			}
+		}
+	}
+
+	add(regex: string, controller: (...args: any[]) => void): void {
 		this.routes.push({ regex: regex, controller: controller })
 	}
 
@@ -51,22 +70,11 @@ class RouterController {
 		return (fragment.match('^' + regexPath + '$') != null)
 	}
 
-	open(fragment: string = null): void {
-		for (let i = 0; i < this.routes.length; ++i) {
-			const route = this.routes[i]
-			let match = fragment.match('^' + route.regex + '$')
-			if (match) {
-				match.shift()
-				route.controller.apply({}, match)
-			}
-		}
-	}
-
 	listen(): void {
 		const updateRoute = () => {
 			if (this.currentFragment !== this.getFragment()) {
 				this.currentFragment = this.getFragment()
-				this.open(this.currentFragment)
+				this.openFragment(this.currentFragment)
 			}
 		}
 		clearInterval(this.interval)
@@ -75,13 +83,13 @@ class RouterController {
 
 	navigate(path: string): void {
 		path = path ? path : '';
-		if (this.mode === 'history')
+		if (this._mode === 'history')
 			history.pushState(null, null, this.root + this.clearSlashes(path))
 		else
 			window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path
 		if (this.currentFragment !== this.getFragment()) {
 			this.currentFragment = this.getFragment()
-			this.open(this.currentFragment)
+			this.openFragment(this.currentFragment)
 		}
 	}
 }
