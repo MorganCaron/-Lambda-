@@ -77,8 +77,8 @@ class RouterController {
 				this.openFragment(this.currentFragment)
 			}
 		}
-		clearInterval(this.interval)
-		this.interval = window.setInterval(updateRoute.bind(this), 50)
+		updateRoute()
+		window.addEventListener('popstate', updateRoute.bind(this))
 	}
 
 	navigate(path: string): void {
