@@ -50,6 +50,9 @@ export class ViewSyntaxPage extends Layout {
 			pre class: lang-ts {
 				code "${DemoTs}"
 			}
+			p class: lead {
+				"If you have a rendering problem (for example, " strong "if nothing is displayed" "), " strong "open the browser console" ". A " strong "syntax error" " may have been found in your code."
+			}
 		`
 	}
 

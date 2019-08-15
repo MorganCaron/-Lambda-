@@ -15,7 +15,7 @@ export class Menu extends Layout {
 				li click: ${() => Router.navigate('component')} class: "${Router.check('component') ? 'current' : ''}" "Component"
 				li click: ${() => Router.navigate('view-syntax')} class: "${Router.check('view-syntax') ? 'current' : ''}" "View Syntax"
 				li click: ${() => Router.navigate('reactivity')} class: "${Router.check('reactivity') ? 'current' : ''}" "Reactivity"
-				li click: ${() => Router.navigate('router')} class: "${Router.check('router') ? 'current' : ''}" "Router"
+				li click: ${() => Router.navigate('router')} class: "${Router.check('router(\\/(.*)\\/edit\\/(.*))?') ? 'current' : ''}" "Router"
 				li click: ${() => Router.navigate('writer')} class: "${Router.check('writer') ? 'current' : ''}" "Writer"
 				li click: ${() => Router.navigate('animations')} class: "${Router.check('animations') ? 'current' : ''}" "Animations"
 			}

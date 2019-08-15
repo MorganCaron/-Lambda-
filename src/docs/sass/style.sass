@@ -10,11 +10,10 @@
 
 body
 	background-image: url(../img/triangleTiles.svg)
-	background-size: 100vw 70vw
+	background-size: 200vw 140vw
 
 header .tilt-right-5
 	padding-left: 3rem
-	background-image: url(../img/triangleTiles.svg)
 	box-shadow: 10px 5px 5px rgba($darkgrey, .5)
 
 h1
@@ -67,7 +66,7 @@ p.lead a
 nav
 	padding: .5rem
 	background-image: url(../img/triangleTiles.svg)
-	background-size: 300px 212px
+	background-size: 500px 350px
 	box-shadow: 10px 5px 5px rgba($darkgrey, .5)
 	> ul
 		margin-bottom: .5rem
@@ -96,7 +95,9 @@ nav
 					left: -2em
 					transform: scale(1.5)
 			&.current
-				background-color: rgba(white, .75)
+				background-color: white
+				background-image: url(../img/triangleTiles.svg)
+				background-size: cover
 				color: black
 
 pre[class*=language-], code[class*=language-]
@@ -124,16 +125,14 @@ pre[class*=language-], code[class*=language-]
 
 .btn
 	padding: .5rem
-	border: 2px solid currentColor
+	border: 1px solid rgba($darkgrey, .1)
 	background-color: white
+	background-image: url(../img/triangleTiles.svg)
+	box-shadow: 2px 2px 10px rgba($darkgrey, .2)
 	color: darkcyan
-	text-decoration: none
-	transition: all .15s ease-in-out
 	transition-property: color, box-shadow
-
-.btn:hover
-	color: 	mediumaquamarine
-	box-shadow: 0 0 5px darkcyan
+	&:hover
+		box-shadow: 2px 2px 5px rgba($darkgrey, .3)
 
 a
 	color: inherit

@@ -39,7 +39,7 @@ export class WriterPage extends Layout {
 				"This demo displays its own source code. It shows how " strong "the Writer progressively displays the code" "."
 			}
 			${new Demo()}
-			h3 "Bonus Demo"
+			h3 "Bonus Demo & Source Code"
 			p class: lead {
 				"Here is also " strong "the source code of the header of this site" ", containing the animation that changes the title."
 			}
