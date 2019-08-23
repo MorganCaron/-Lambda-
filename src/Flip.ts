@@ -26,7 +26,7 @@ export class Flip {
 			if (endPos.width && endPos.height) {
 				const deltaX = startPos.x - endPos.x
 				const deltaY = startPos.y - endPos.y
-				if (deltaX || deltaY)
+				if (pair.element.animate && (deltaX || deltaY))
 					pair.element.animate([{
 						transformOrigin: 'top left',
 						transform: `translate(${deltaX}px, ${deltaY}px)`
