@@ -12,7 +12,7 @@ before_deploy:
 
 deploy:
   - provider: releases
-    api-key: $GITHUB_TOKEN
+    github-token: $GITHUB_TOKEN
     skip-cleanup: true
     keep-history: true
     on:
