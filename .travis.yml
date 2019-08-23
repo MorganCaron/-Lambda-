@@ -11,15 +11,9 @@ before_deploy:
   - sed -i '/index.html/d' .gitignore
 
 deploy:
-  - provider: releases
-    github-token: $GITHUB_TOKEN
-    skip-cleanup: true
-    keep-history: true
-    on:
-      branch: master
   - provider: pages
-    github-token: $GITHUB_TOKEN
-    skip-cleanup: true
-    keep-history: true
+    github_token: $GITHUB_TOKEN
+    skip_cleanup: true
+    keep_history: true
     on:
       branch: master
