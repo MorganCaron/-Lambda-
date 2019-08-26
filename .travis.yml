@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "node"
+  - node
 
 script: npm run build
 
@@ -11,14 +11,20 @@ before_deploy:
   - sed -i '/index.html/d' .gitignore
 
 deploy:
-  - provider: releases
-    skip_cleanup: true
-    keep_history: true
-    on:
-      branch: master
-  - provider: pages
-    github_token: $GITHUB_TOKEN
-    skip_cleanup: true
-    keep_history: true
-    on:
-      branch: master
+  matrix:
+    - provider: releases
+      api_key: GITHUB OAUTH TOKEN
+      skip_cleanup: true
+      draft: true
+      overwrite: true
+      on:
+        branch: master
+        tags: true
+    - provider: pages
+      github_token: "$GITHUB_TOKEN"
+      skip_cleanup: true
+      keep_history: true
+      on:
+        branch: master
+  password:
+    secure: aZIenttWclt74PNixrt/GOtcVra5Lbu5ylMeSqI7n4b5I1qNHD0zeDjO09TPmFImlVAQA4VIaXVUTccKRKzkHwqPiS9cxsx9OFHShIC3e10zZO9f525wTVdMs6D4O08fWrymbi+mtzoZ8YlwhQomRu8w03l1fF5nVAi2UP7j7XyKu0MPMXN1HQzLIZUEXSsAmsgPgrqhFWNxfvXHQF5t6/dnSJFHDLfjsTO7w0e1Cmh/y5RJI87sID5Gi9qrWWIq1M7Bv9t6wqmhBoKh5mpUBTf9WU73V2jnsvLd4aFkEE6asuwu7fA4Z3J/lB3WI9IILCvunG5AzT5G02BVddgH1SdOaR5XqtCcDSRgmaiuw9qMxHXyF5991BDC7KGo4uXtwgEsxEz2CjMlfq3lAuIhc7oAbYedaPReZajJXVN08B9u9Apkd9+rcfHykhFOwVX8+I4IdgYuNqYsD+0yxAriYRcHJx0IETpE8MM0krzhwItnOP+wen67wGAoAaUvVTR8hYDNT55qkj+yYPuH5RhYfYXIsuNhpfIgDUbCtMky22Plv9tUJabEbJGNsOjyz2tkOZv8F3XNCnINE+zf7llN8Spsj6gkuvh9E9+C9AK/iDbkQozV1H76eDzxkKvl6yVmIB2bmU5u/h/m79aFUMdh2BrJSl4XFOmZ42nip1FXdMc=
