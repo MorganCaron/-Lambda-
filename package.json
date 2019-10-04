@@ -28,7 +28,7 @@
 		"nootstrap": "git+https://github.com/MorganCaron/Nootstrap.git",
 		"prism-themes": "^1.1.0",
 		"prismjs": "^1.17.1",
-		"webpack-config-generator": "^1.0.0"
+		"webpack-config-generator": "^1.0.1"
 	},
 	"repository": {
 		"type": "git",
