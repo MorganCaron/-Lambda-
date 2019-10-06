@@ -2,8 +2,8 @@
 	"name": "modulardom",
 	"version": "1.0.0",
 	"description": "TypeScript framework designed to facilitate the creation of single-page web applications",
-	"main": "dist/ModularDom.min.js",
-	"types": "dist/ModularDom.d.ts",
+	"main": "build/ModularDom.min.js",
+	"types": "build/ModularDom.d.ts",
 	"bin": {
 		"ModularDom": "dist/ModularDom.min.js"
 	},
@@ -28,7 +28,7 @@
 		"nootstrap": "git+https://github.com/MorganCaron/Nootstrap.git",
 		"prism-themes": "^1.2.0",
 		"prismjs": "^1.17.1",
-		"webpack-config-generator": "^1.0.2"
+		"webpack-config-generator": "^1.0.3"
 	},
 	"repository": {
 		"type": "git",
