@@ -4,9 +4,11 @@
 		"outDir": "build",
 		"noImplicitAny": true,
 		"removeComments": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
 		"module": "es6",
 		"moduleResolution": "node",
-		"target": "es5",
+		"target": "es6",
 		"jsx": "react",
 		"lib": [
 			"dom",

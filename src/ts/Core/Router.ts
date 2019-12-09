@@ -1,27 +1,36 @@
-interface Route {
-	regex: string
-	controller: () => void
+declare type RouterMode = 'history' | 'hash'
+
+export interface Route {
+	path: string
+	controller: (...args: any[]) => void
 }
 
-class RouterController {
+export interface RouterParameters {
+	mode?: RouterMode
+	routes?: Route[]
+}
+
+export class Router {
 	routes: Route[]
 	root: string
-	_mode: 'history' | 'hash'
+	_mode: RouterMode
 	currentFragment: string
 	interval: number
 
-	constructor(mode: 'history' | 'hash' = undefined) {
+	constructor(config: RouterParameters) {
 		this.routes = []
 		this.root = '/'
-		this._mode = mode || !!(history.pushState) ? 'history' : 'hash'
+		this._mode = config.mode || !!(history.pushState) ? 'history' : 'hash'
 		this.currentFragment = null
+		if (config.routes)
+			config.routes.forEach(route => this.add(route))
 	}
 
-	set mode(mode: 'history' | 'hash') {
+	set mode(mode: RouterMode) {
 		this._mode = !!(history.pushState) ? mode : 'hash'
 	}
 
-	get mode(): 'history' | 'hash' {
+	get mode(): RouterMode {
 		return this._mode
 	}
 
@@ -45,7 +54,7 @@ class RouterController {
 	openFragment(fragment: string): void {
 		for (let i = 0; i < this.routes.length; ++i) {
 			const route = this.routes[i]
-			let match = fragment.match('^' + route.regex + '$')
+			let match = fragment.match('^' + route.path + '$')
 			if (match) {
 				match.shift()
 				route.controller.apply({}, match)
@@ -53,21 +62,21 @@ class RouterController {
 		}
 	}
 
-	add(regex: string, controller: (...args: any[]) => void): void {
-		this.routes.push({ regex: regex, controller: controller })
+	add(route: Route): void {
+		this.routes.push(route)
 	}
 
-	remove(regex: string): void {
+	remove(path: string): void {
 		for (let i = 0; i < this.routes.length; ++i) {
 			const route = this.routes[i]
-			if (regex.toString() === route.regex.toString())
+			if (path.toString() === route.path.toString())
 				this.routes.splice(i, 1)
 		}
 	}
 
-	check(regexPath: string): boolean {
+	check(path: string): boolean {
 		const fragment = this.getFragment()
-		return (fragment.match('^' + regexPath + '$') != null)
+		return (fragment.match('^' + path + '$') != null)
 	}
 
 	listen(): void {
@@ -81,8 +90,7 @@ class RouterController {
 		window.addEventListener('popstate', updateRoute.bind(this))
 	}
 
-	navigate(path: string): void {
-		path = path ? path : '';
+	navigate(path: string = ''): void {
 		if (this._mode === 'history')
 			history.pushState(null, null, this.root + this.clearSlashes(path))
 		else
@@ -93,5 +101,3 @@ class RouterController {
 		}
 	}
 }
-
-export const Router = new RouterController()

@@ -1,6 +1,6 @@
 import * as Prism from 'prismjs'
 
-import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
+import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ts/ModularDom'
 
 import IndexHtml from '!!raw-loader!./example/index.html'
 import AppTs from '!!raw-loader!./example/App.ts'

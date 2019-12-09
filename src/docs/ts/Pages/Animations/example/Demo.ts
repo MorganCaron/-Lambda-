@@ -1,5 +1,4 @@
 import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ts/ModularDom'
-import { Card } from './Card'
 
 type Article = {
 	title: string,
@@ -21,14 +20,22 @@ export class Demo extends Layout {
 		this.update()
 	}
 
+	deleteArticle(index: number): void {
+		this.articles.splice(index, 1)
+		this.update()
+	}
+
 	render(): Elem[] {
 		return View`
 			div class: container-fluid {
 				h4 "Cards"
 				div class: row {
-					${this.articles.flatMap(article => View`
+					${this.articles.flatMap((article: Article, index: number) => View`
 					div class: "col-md-4 col-sm-6" {
-						${new Card(article.title, article.description, article.image)}
+						button click: ${() => this.deleteArticle(index)} "X"
+						h5 "${article.title}"
+						img src: "${article.image}" alt: "${article.title}";
+						p "${article.description}"
 					}`)}
 				}
 			}

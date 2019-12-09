@@ -1,4 +1,4 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
+import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ts/ModularDom'
 
 export class Header extends Layout {
 	title: Reactive<string>

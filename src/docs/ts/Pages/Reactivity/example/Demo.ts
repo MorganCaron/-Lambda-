@@ -1,5 +1,5 @@
-import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ModularDom'
-import { HTMLElementEvent } from 'VDom'
+import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ts/ModularDom'
+import { HTMLElementEvent } from 'ts/old/VDom'
 
 export class Demo extends Layout {
 

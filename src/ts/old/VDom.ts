@@ -16,8 +16,13 @@ export class VDOMText {
 
 export class VDOMObject {
 	el: Element
+	animationOptions: KeyframeAnimationOptions
 
-	constructor(element: Element) { this.el = element }
+	constructor(element: Element, animationOptions: KeyframeAnimationOptions = undefined) {
+		this.el = element
+		this.animationOptions = { duration: 500, easing: 'ease-in-out', ...animationOptions }
+	}
+
 	found() { return this.el != null }
 	delete() { if (this.el) this.el.remove() }
 
@@ -44,6 +49,32 @@ export class VDOMObject {
 			}
 	}
 
+	compareTagName(node0: Node, node1: Node) {
+		if (xor(node0 instanceof Element, node1 instanceof Element))
+			return false
+		if (node0 instanceof Text)
+			return (node0.wholeText == (node1 as Text).wholeText)
+		if (node0 instanceof Element)
+			return (node0.tagName == (node1 as Element).tagName)
+		return false
+	}
+
+	updateAttributes(oldElem: Element, newElem: Element) {
+		const oldAttrs = Array.from(oldElem.attributes)
+		const newAttrs = Array.from(newElem.attributes)
+		oldAttrs.forEach(oldAttr => {
+			const attrName = oldAttr.name
+			if (!newElem.hasAttribute(attrName))
+				oldElem.removeAttribute(attrName)
+		})
+		newAttrs.forEach(newAttr => {
+			const attrName = newAttr.name
+			const newValue = newElem.getAttribute(attrName)
+			if (!oldElem.hasAttribute(attrName) || oldElem.getAttribute(attrName) !== newElem.getAttribute(attrName))
+				oldElem.setAttribute(attrName, newValue)
+		})
+	}
+
 	clearChilds(): void {
 		while (this.el.firstChild)
 			this.el.removeChild(this.el.firstChild)
@@ -55,6 +86,37 @@ export class VDOMObject {
 		})
 	}
 
+	updateChilds(parent: Element, newElems: Element[]): void {
+		const oldElems = Array.from(parent.children)
+		const oldLength = oldElems.length
+		const newLength = newElems.length
+		const flip = new Flip()
+		flip.save(parent)
+		for (let i = 0; i < oldLength || i < newLength; ++i) {
+			const oldElem = parent.children[i]
+			const newElem = newElems[i]
+			if (!oldElem && newElem) {
+				const newChild = parent.appendChild(newElem) as Element
+				if (newChild.animate)
+					newChild.animate([{ opacity: 0 }, { opacity: 1 }], { ...this.animationOptions, fill: 'both' })
+			}
+			else if (oldElem && !newElem)
+				parent.removeChild(oldElem)
+			else if (!this.compareTagName(oldElem, newElem) || oldElem.textContent !== newElem.textContent)
+				parent.replaceChild(newElem, oldElem)
+			else {
+				this.updateAttributes(oldElem, newElem as Element)
+				if (!oldElem.isEqualNode(newElem)) {
+					if (newElem.children.length == 0 && oldElem.textContent !== newElem.textContent)
+						oldElem.textContent = newElem.textContent
+					else
+						this.updateChilds(oldElem, Array.from((newElem as Element).children))
+				}
+			}
+		}
+		flip.play(this.animationOptions)
+	}
+
 	setContent(content: string | Elem[]): void {
 		if (!this.el) return
 		let contentArray: Elem[] = []
@@ -62,8 +124,7 @@ export class VDOMObject {
 			contentArray = [new VDOMText(content)]
 		else if (Array.isArray(content))
 			contentArray = content
-		this.clearChilds()
-		this.addChilds(contentArray)
+		this.updateChilds(this.el, contentArray.map(elem => elem.el as Element))
 	}
 
 	setText(text: string): void { this.setContent(text) }
@@ -113,69 +174,11 @@ class Head extends VDOMObject {
 
 export class Body extends VDOMObject {
 	_head: Head
-	animationOptions: KeyframeAnimationOptions
 
 	constructor(animationOptions: KeyframeAnimationOptions = undefined) {
-		super(document.body)
-		this.animationOptions = { duration: 500, easing: 'ease-in-out', ...animationOptions }
+		super(document.body, animationOptions)
 		this.el.innerHTML = ''
 		this._head = new Head()
-	}
-
-	compareTagName(node0: Node, node1: Node) {
-		if (xor(node0 instanceof Element, node1 instanceof Element))
-			return false
-		if (node0 instanceof Text)
-			return (node0.wholeText == (node1 as Text).wholeText)
-		if (node0 instanceof Element)
-			return (node0.tagName == (node1 as Element).tagName)
-		return false
-	}
-
-	updateAttributes(oldElem: Element, newElem: Element) {
-		const oldAttrs = Array.from(oldElem.attributes)
-		const newAttrs = Array.from(newElem.attributes)
-		oldAttrs.forEach(oldAttr => {
-			const attrName = oldAttr.name
-			if (!newElem.hasAttribute(attrName))
-				oldElem.removeAttribute(attrName)
-		})
-		newAttrs.forEach(newAttr => {
-			const attrName = newAttr.name
-			const newValue = newElem.getAttribute(attrName)
-			if (!oldElem.hasAttribute(attrName) || oldElem.getAttribute(attrName) !== newElem.getAttribute(attrName))
-				oldElem.setAttribute(attrName, newValue)
-		})
-	}
-
-	updateChilds(parent: Element, newElems: Element[]): void {
-		const oldElems = Array.from(parent.children)
-		const oldLength = oldElems.length
-		const newLength = newElems.length
-		const flip = new Flip()
-		flip.save(parent)
-		for (let i = 0; i < oldLength || i < newLength; ++i) {
-			const oldElem = parent.children[i]
-			const newElem = newElems[i]
-			if (!oldElem && newElem) {
-				const newChild = parent.appendChild(newElem) as Element
-				newChild.animate([{ opacity: 0 }, { opacity: 1 }], { ...this.animationOptions, fill: 'both' })
-			}
-			else if (oldElem && !newElem)
-				parent.removeChild(oldElem)
-			else if (!this.compareTagName(oldElem, newElem) || oldElem.textContent !== newElem.textContent)
-				parent.replaceChild(newElem, oldElem)
-			else {
-				this.updateAttributes(oldElem, newElem as Element)
-				if (!oldElem.isEqualNode(newElem)) {
-					if (newElem.children.length == 0 && oldElem.textContent !== newElem.textContent)
-						oldElem.textContent = newElem.textContent
-					else
-						this.updateChilds(oldElem, Array.from((newElem as Element).children))
-				}
-			}
-		}
-		flip.play(this.animationOptions)
 	}
 
 	setContent(content: string | Elem[]): void {
