@@ -5,5 +5,5 @@ export interface Route {
 	component: Type<any>
 }
 */
-export { Component, Input, Route } from './Core'
+export { Component, Input, Reactive, Route, TemplateInformations, TemplateGetKeys, TemplateMatch, TemplateGetMatchs, TemplateReplaceKeys } from './Core'
 export * from './Components'

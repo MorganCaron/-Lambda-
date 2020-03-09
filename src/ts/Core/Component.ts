@@ -1,5 +1,5 @@
+import { TemplateInformations, TemplateGetKeys, TemplateMatch, TemplateGetMatchs, TemplateReplaceKeys } from './Template'
 import { Type } from './Utils'
-// import { Reactive } from './Reactive'
 
 export interface ComponentParameters {
 	selector: string
@@ -9,13 +9,38 @@ export interface ComponentParameters {
 	useShadow?: boolean
 }
 
+const createTemplate = (html: string, style?: string): HTMLTemplateElement => {
+	const template = document.createElement('template')
+	html = html || ''
+	template.innerHTML = style ? `<style>${style}</style>${html}` : html
+	return template
+}
+
+const scanElement = (component: HTMLElement): any => {
+	let containsVariable: any = {}
+	const nbChilds = component.childNodes.length
+	for (let i = 0; i < nbChilds; ++i) {
+		const element = component.childNodes[i]
+		if (element.nodeType == 3) {
+			const keys = TemplateGetKeys(element.nodeValue)
+			keys.forEach(key => {
+				if (!containsVariable[key]) containsVariable[key] = []
+				containsVariable[key].push({
+					element: element,
+					template: element.nodeValue
+				})
+			}
+		}
+		if (element instanceof HTMLElement)
+			containsVariable = { ...containsVariable, ...scanElement(element) }
+	}
+	return containsVariable
+}
+
 export const Component = (config: ComponentParameters) => {
 	if (config.selector.indexOf('-') <= 0) throw new Error('You need at least 1 dash in the component element name.')
 	return <T extends Type<HTMLElement>>(component: T) => {
-
-		const template = document.createElement('template')
-		if (config.style) config.template = `<style>${config.style}</style>${config.template}`
-		template.innerHTML = config.template || ''
+		const template = createTemplate(config.template, config.style)
 
 		const init = component.prototype.init || function() { }
 		component.prototype.connectedCallback = function() {
@@ -24,7 +49,9 @@ export const Component = (config: ComponentParameters) => {
 				this.attachShadow({ mode: 'open' }).appendChild(clone)
 			else
 				this.appendChild(clone)
+			component.prototype.constructor.__variables__ = scanElement(this)
 			init.call(this)
+			component.prototype.constructor.__isInitialized__ = true
 		}
 
 		const destroy = component.prototype.destroy || function() { }
@@ -42,8 +69,17 @@ export const Component = (config: ComponentParameters) => {
 		const update = component.prototype.update || function() { }
 		Object.assign(component.prototype, {
 			attributeChangedCallback(name: string, oldValue: any, newValue: any) {
-				if (oldValue === newValue) return;
+				if (oldValue === newValue || !component.prototype.constructor.__isInitialized__) return;
 				(this as any)["__" + name] = newValue
+				const elementsData: any[] = component.prototype.constructor.__variables__[name] || []
+				elementsData.forEach(elementData => {
+					let text = elementData.template
+					const matchs = TemplateGetMatchs(text)
+					matchs.forEach(match => {
+						text = text.replace(match.sample, (this as any)["__" + match.key])
+					})
+					elementData.element.nodeValue = text
+				})
 				update.call(this)
 			}
 		})

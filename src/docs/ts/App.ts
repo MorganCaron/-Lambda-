@@ -1,11 +1,11 @@
 import { Component, Input, Router } from 'ts/ModularDom'
 import html from './App.html'
-// import css from './App.css'
+import css from '!!raw-loader!./App.css'
 
 @Component({
 	selector: 'app-main',
 	template: html,
-	style: 'h1 { color: red }'
+	style: css
 })
 class App extends HTMLElement {
 
@@ -22,8 +22,6 @@ class App extends HTMLElement {
 	}
 
 	update() {
-		const span = this.querySelector("span")
-		if (span)
-			span.innerHTML = this.test
+		console.log(this.test)
 	}
 }
