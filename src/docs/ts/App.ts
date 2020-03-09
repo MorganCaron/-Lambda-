@@ -12,16 +12,18 @@ class App extends HTMLElement {
 	@Input() test: string
 
 	init() {
-		this.innerHTML += this.test
-		console.log(this)
+		setInterval(
+			() => {
+				if (this.test == "A")
+					this.test = "B"
+				else
+					document.querySelector("app-main").setAttribute("test", "A")
+			}, 1000)
 	}
 
-	static get observedAttributes() {
-		return ['test'];
+	update() {
+		const span = this.querySelector("span")
+		if (span)
+			span.innerHTML = this.test
 	}
-
-	attributeChangedCallback(name: string, oldValue: any, newValue: any) {
-		this["__"  + name] = newValue
-	}
-
 }

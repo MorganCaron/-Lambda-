@@ -19,6 +19,8 @@ class RouterComponent extends HTMLElement {
 	})
 
 	init() {
+		if (this.routes == undefined)
+			return;
 		this.routes.forEach(route => this.router.add({
 			path: route.path,
 			controller: (...parameters: any[]) => {

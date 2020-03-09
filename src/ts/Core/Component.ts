@@ -14,7 +14,7 @@ export const Component = (config: ComponentParameters) => {
 	return <T extends Type<HTMLElement>>(component: T) => {
 
 		const template = document.createElement('template')
-		if (config.style) config.template = `<style>${config.style}</style> ${config.template}`
+		if (config.style) config.template = `<style>${config.style}</style>${config.template}`
 		template.innerHTML = config.template || ''
 
 		const init = component.prototype.init || function() { }
@@ -30,38 +30,49 @@ export const Component = (config: ComponentParameters) => {
 		const destroy = component.prototype.destroy || function() { }
 		component.prototype.disconnectedCallback = () => destroy.call(this)
 
+		if (!component.prototype.constructor.hasOwnProperty('__attributes__'))
+			component.prototype.constructor.__attributes__ = []
+
+		Object.defineProperty(component.prototype.constructor, 'observedAttributes', {
+			get() {
+				return this.__attributes__;
+			}
+		})
+
+		const update = component.prototype.update || function() { }
+		Object.assign(component.prototype, {
+			attributeChangedCallback(name: string, oldValue: any, newValue: any) {
+				if (oldValue === newValue) return;
+				(this as any)["__" + name] = newValue
+				update.call(this)
+			}
+		})
+
 		if (typeof config.extends !== 'undefined')
 			window.customElements.define(config.selector, component, { extends: config.extends })
 		else
 			window.customElements.define(config.selector, component)
-		
-		// component.prototype.constructor.observedAttributes = []
-		Object.defineProperty(component.constructor, 'observedAttributes', {
-			get(): Array<string> {
-				return ['test']//this.__observedAttributes
-			},
-			set(value: string) {
-				this.__observedAttributes = value
-			},
-			enumerable: true
-		})
 	}
 }
 
 export const Input = () => {
-	return (component: any, propertyKey: string) => {
-		/*
-		if (!component.observedAttributes.includes(propertyKey))
-			component.observedAttributes.push(propertyKey)
-		*/
-		//component["__" + propertyKey] = new Reactive<Object.getOwnPropertyDescriptor(component, propertyKey)>
+	return <T extends HTMLElement>(component: T, propertyKey: string) => {
+		if (!component.constructor.hasOwnProperty('__attributes__'))
+			(component.constructor as any).__attributes__ = [];
+		(component.constructor as any).__attributes__.push(propertyKey)
+
 		Object.defineProperty(component, propertyKey, {
 			get() {
-				return this["__" + propertyKey]
+				return (this as any)["__" + propertyKey]
 			},
 			set(value: any) {
-				this["__" + propertyKey] = value
-			}
+				(this as any)["__" + propertyKey] = value
+				if (value)
+					this.setAttribute(propertyKey, value)
+				else
+					this.removeAttribute(propertyKey);
+			},
+			enumerable: true
 		})
 	}
 }
