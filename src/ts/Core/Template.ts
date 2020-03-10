@@ -34,8 +34,10 @@ export const TemplateInformations = {
 	closeSymbol: '}}'
 }
 
+const TemplateGetRegex = () => new RegExp(TemplateInformations.openSymbol + ' *(.+?)? *' + TemplateInformations.closeSymbol, 'g')
+
 export const TemplateGetKeys = (src: string) => {
-	const regex = new RegExp(TemplateInformations.openSymbol + ' *(.+?)? *' + TemplateInformations.closeSymbol, 'g')
+	const regex = TemplateGetRegex()
 	let match: RegExpExecArray
 	let keys: string[] = []
 	while (match = regex.exec(src))
@@ -48,7 +50,7 @@ export interface TemplateMatch {
 	sample: string
 }
 export const TemplateGetMatchs = (src: string): TemplateMatch[] => {
-	const regex = new RegExp(TemplateInformations.openSymbol + ' *(.+?)? *' + TemplateInformations.closeSymbol, 'g')
+	const regex = TemplateGetRegex()
 	let match: RegExpExecArray
 	let matchs: TemplateMatch[] = []
 	while (match = regex.exec(src))
@@ -57,7 +59,7 @@ export const TemplateGetMatchs = (src: string): TemplateMatch[] => {
 }
 
 export const TemplateReplaceKeys = (src: string, replacements: any) => {
-	const regex = new RegExp(TemplateInformations.openSymbol + ' *(.+?)? *' + TemplateInformations.closeSymbol, 'g')
+	const regex = TemplateGetRegex()
 	let match: RegExpExecArray
 	while (match = regex.exec(src))
 		src = src.replace(match[0], replacements[match[1]])

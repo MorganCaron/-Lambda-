@@ -5,7 +5,7 @@
 	"main": "build/ModularDom.min.js",
 	"types": "build/ModularDom.d.ts",
 	"bin": {
-		"ModularDom": "dist/ModularDom.min.js"
+		"ModularDom": "build/ModularDom.min.js"
 	},
 	"scripts": {
 		"watch": "webpack-dev-server --mode development --open",

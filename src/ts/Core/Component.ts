@@ -16,7 +16,7 @@ const createTemplate = (html: string, style?: string): HTMLTemplateElement => {
 	return template
 }
 
-const scanElement = (component: HTMLElement): any => {
+const scanTemplatedElements = (component: HTMLElement): any => {
 	let containsVariable: any = {}
 	const nbChilds = component.childNodes.length
 	for (let i = 0; i < nbChilds; ++i) {
@@ -32,9 +32,21 @@ const scanElement = (component: HTMLElement): any => {
 			}
 		}
 		if (element instanceof HTMLElement)
-			containsVariable = { ...containsVariable, ...scanElement(element) }
+			containsVariable = { ...containsVariable, ...scanTemplatedElements(element) }
 	}
 	return containsVariable
+}
+
+const completeTemplatedElements = (component: HTMLElement, templatedElementsData?: any[]) => {
+	templatedElementsData = templatedElementsData || []
+	templatedElementsData.forEach(templatedElementData => {
+		let text = templatedElementData.template
+		const matchs = TemplateGetMatchs(text)
+		matchs.forEach(match => {
+			text = text.replace(match.sample, (component as any)[match.key])
+		})
+		templatedElementData.element.nodeValue = text
+	})
 }
 
 export const Component = (config: ComponentParameters) => {
@@ -49,9 +61,13 @@ export const Component = (config: ComponentParameters) => {
 				this.attachShadow({ mode: 'open' }).appendChild(clone)
 			else
 				this.appendChild(clone)
-			component.prototype.constructor.__variables__ = scanElement(this)
+			component.prototype.constructor.__variables__ = scanTemplatedElements(this)
 			init.call(this)
 			component.prototype.constructor.__isInitialized__ = true
+			completeTemplatedElements(this,
+				Object.keys(component.prototype.constructor.__variables__)
+					.map(key => component.prototype.constructor.__variables__[key])
+					.reduce((acc, cur) => [...acc, ...cur], []))
 		}
 
 		const destroy = component.prototype.destroy || function() { }
@@ -71,15 +87,7 @@ export const Component = (config: ComponentParameters) => {
 			attributeChangedCallback(name: string, oldValue: any, newValue: any) {
 				if (oldValue === newValue || !component.prototype.constructor.__isInitialized__) return;
 				(this as any)["__" + name] = newValue
-				const elementsData: any[] = component.prototype.constructor.__variables__[name] || []
-				elementsData.forEach(elementData => {
-					let text = elementData.template
-					const matchs = TemplateGetMatchs(text)
-					matchs.forEach(match => {
-						text = text.replace(match.sample, (this as any)["__" + match.key])
-					})
-					elementData.element.nodeValue = text
-				})
+				completeTemplatedElements(this, component.prototype.constructor.__variables__[name])
 				update.call(this)
 			}
 		})
