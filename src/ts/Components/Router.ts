@@ -12,21 +12,19 @@ interface ComponentRoute {
 })
 class RouterComponent extends HTMLElement {
 
-	@Input() routes: ComponentRoute[]
-
 	router = new Router({
 		mode: 'hash'
 	})
 
-	init() {
-		if (this.routes == undefined)
-			return;
-		this.routes.forEach(route => this.router.add({
+	set routes(routes: ComponentRoute[]) {
+		routes.forEach(route => this.router.add({
 			path: route.path,
 			controller: (...parameters: any[]) => {
+				this.innerHTML = ''
 				this.appendChild(new route.component(parameters))
 			}
 		}))
+		this.router.listen()
 	}
 
 }

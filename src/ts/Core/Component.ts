@@ -29,7 +29,7 @@ const scanTemplatedElements = (component: HTMLElement): any => {
 					element: element,
 					template: element.nodeValue
 				})
-			}
+			})
 		}
 		if (element instanceof HTMLElement)
 			containsVariable = { ...containsVariable, ...scanTemplatedElements(element) }
@@ -85,10 +85,12 @@ export const Component = (config: ComponentParameters) => {
 		const update = component.prototype.update || function() { }
 		Object.assign(component.prototype, {
 			attributeChangedCallback(name: string, oldValue: any, newValue: any) {
-				if (oldValue === newValue || !component.prototype.constructor.__isInitialized__) return;
+				if (oldValue === newValue) return;
 				(this as any)["__" + name] = newValue
-				completeTemplatedElements(this, component.prototype.constructor.__variables__[name])
-				update.call(this)
+				if (component.prototype.constructor.__isInitialized__) {
+					update.call(this)
+					completeTemplatedElements(this, component.prototype.constructor.__variables__[name])
+				}
 			}
 		})
 
@@ -99,7 +101,7 @@ export const Component = (config: ComponentParameters) => {
 	}
 }
 
-export const Input = () => {
+export const Attribute = () => {
 	return <T extends HTMLElement>(component: T, propertyKey: string) => {
 		if (!component.constructor.hasOwnProperty('__attributes__'))
 			(component.constructor as any).__attributes__ = [];

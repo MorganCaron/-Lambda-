@@ -1,8 +1,8 @@
 import 'prism-themes/themes/prism-atom-dark'
 
 import { Elem, Layout, Body, Tag, View, Reactive, Router, Writer, WriterOptions } from 'ts/ModularDom'
-import { Header, Footer, Menu } from './ts/Layouts'
-import { HomePage, InstallationPage, ComponentPage, ViewSyntaxPage, ReactivityPage, RouterPage, AnimationsPage, WriterPage } from './ts/Pages'
+import { Header, Footer, Menu } from './ts/OldLayouts'
+import { HomePage, InstallationPage, ComponentPage, ViewSyntaxPage, ReactivityPage, RouterPage, AnimationsPage, WriterPage } from './ts/OldPages'
 
 class App extends Body {
 	page: Reactive<Elem>

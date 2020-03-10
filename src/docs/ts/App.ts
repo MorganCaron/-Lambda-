@@ -1,6 +1,7 @@
-import { Component, Input, Router } from 'ts/ModularDom'
+import { Component, Attribute, Router } from 'ts/ModularDom'
 import html from './App.html'
 import css from '!!raw-loader!./App.css'
+import { HomePage } from './Pages'
 
 @Component({
 	selector: 'app-main',
@@ -9,9 +10,13 @@ import css from '!!raw-loader!./App.css'
 })
 class App extends HTMLElement {
 
-	@Input() test: string
+	@Attribute() test: string
 
 	init() {
+		const router = this.querySelector('app-router') as Router
+		router.routes = [
+			{ path: '', component: HomePage }
+		]
 		setInterval(
 			() => {
 				if (this.test == "A")
@@ -19,9 +24,5 @@ class App extends HTMLElement {
 				else
 					document.querySelector("app-main").setAttribute("test", "A")
 			}, 1000)
-	}
-
-	update() {
-		console.log(this.test)
 	}
 }
