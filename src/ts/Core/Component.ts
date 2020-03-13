@@ -1,5 +1,5 @@
-import { TemplateInformations, TemplateGetKeys, TemplateMatch, TemplateGetMatchs, TemplateReplaceKeys } from './Template'
-import { Type } from './Utils'
+import { findVariablesInHTMLElement, setVariablesInNodes } from './Template'
+import { Type, recordToArray, flatify } from './Utils'
 
 export interface ComponentParameters {
 	selector: string
@@ -11,42 +11,8 @@ export interface ComponentParameters {
 
 const createTemplate = (html: string, style?: string): HTMLTemplateElement => {
 	const template = document.createElement('template')
-	html = html || ''
-	template.innerHTML = style ? `<style>${style}</style>${html}` : html
+	template.innerHTML = (style ? `<style>${style}</style>` : '') + (html || '')
 	return template
-}
-
-const scanTemplatedElements = (component: HTMLElement): any => {
-	let containsVariable: any = {}
-	const nbChilds = component.childNodes.length
-	for (let i = 0; i < nbChilds; ++i) {
-		const element = component.childNodes[i]
-		if (element.nodeType == 3) {
-			const keys = TemplateGetKeys(element.nodeValue)
-			keys.forEach(key => {
-				if (!containsVariable[key]) containsVariable[key] = []
-				containsVariable[key].push({
-					element: element,
-					template: element.nodeValue
-				})
-			})
-		}
-		if (element instanceof HTMLElement)
-			containsVariable = { ...containsVariable, ...scanTemplatedElements(element) }
-	}
-	return containsVariable
-}
-
-const completeTemplatedElements = (component: HTMLElement, templatedElementsData?: any[]) => {
-	templatedElementsData = templatedElementsData || []
-	templatedElementsData.forEach(templatedElementData => {
-		let text = templatedElementData.template
-		const matchs = TemplateGetMatchs(text)
-		matchs.forEach(match => {
-			text = text.replace(match.sample, (component as any)[match.key])
-		})
-		templatedElementData.element.nodeValue = text
-	})
 }
 
 export const Component = (config: ComponentParameters) => {
@@ -61,13 +27,10 @@ export const Component = (config: ComponentParameters) => {
 				this.attachShadow({ mode: 'open' }).appendChild(clone)
 			else
 				this.appendChild(clone)
-			component.prototype.constructor.__variables__ = scanTemplatedElements(this)
+			component.prototype.constructor.__variables__ = findVariablesInHTMLElement(this)
 			init.call(this)
 			component.prototype.constructor.__isInitialized__ = true
-			completeTemplatedElements(this,
-				Object.keys(component.prototype.constructor.__variables__)
-					.map(key => component.prototype.constructor.__variables__[key])
-					.reduce((acc, cur) => [...acc, ...cur], []))
+			setVariablesInNodes(this, flatify(recordToArray(component.prototype.constructor.__variables__)))
 		}
 
 		const destroy = component.prototype.destroy || function() { }
@@ -89,7 +52,7 @@ export const Component = (config: ComponentParameters) => {
 				(this as any)["__" + name] = newValue
 				if (component.prototype.constructor.__isInitialized__) {
 					update.call(this)
-					completeTemplatedElements(this, component.prototype.constructor.__variables__[name])
+					setVariablesInNodes(this, component.prototype.constructor.__variables__[name])
 				}
 			}
 		})

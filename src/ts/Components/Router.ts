@@ -1,5 +1,5 @@
-import { Component, Input } from '../Core/Component'
-import { Router, Route } from '../Core/Router'
+import { Component } from '../Core/Component'
+import { Router, RouterMode } from '../Core/Router'
 import { Type } from '../Core/Utils'
 
 interface ComponentRoute {
@@ -12,19 +12,41 @@ interface ComponentRoute {
 })
 class RouterComponent extends HTMLElement {
 
-	router = new Router({
+	router: Router = new Router({
 		mode: 'hash'
 	})
 
-	set routes(routes: ComponentRoute[]) {
-		routes.forEach(route => this.router.add({
+	set mode(mode: RouterMode) {
+		this.router.mode = mode
+	}
+
+	get mode(): RouterMode {
+		return this.router.mode
+	}
+
+	addRoute(route: ComponentRoute): void {
+		console.log(route.path + ' added')
+		this.router.addRoute({
 			path: route.path,
 			controller: (...parameters: any[]) => {
+				console.log(route.path + ' executed')
 				this.innerHTML = ''
 				this.appendChild(new route.component(parameters))
 			}
-		}))
+		})
+	}
+
+	removeRoute(path: string): void {
+		this.router.removeRoute(path)
+	}
+
+	listen(): void {
+		console.log('listening')
 		this.router.listen()
+	}
+
+	navigate(path: string = ''): void {
+		this.router.navigate(path)
 	}
 
 }

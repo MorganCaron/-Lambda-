@@ -1,11 +1,12 @@
 import { Component } from 'ts/ModularDom'
+
 import html from './index.html'
 import css from '!!raw-loader!./style.css'
 
 @Component({
-	selector: 'home-page',
+	selector: 'menu-layout',
 	template: html,
-	style: css
+	style: css,
+	useShadow: false
 })
-export class Home extends HTMLElement {
-}
+export class Menu extends HTMLElement { }

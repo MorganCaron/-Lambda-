@@ -1,4 +1,4 @@
-declare type RouterMode = 'history' | 'hash'
+export declare type RouterMode = 'history' | 'hash'
 
 export interface Route {
 	path: string
@@ -23,7 +23,7 @@ export class Router {
 		this._mode = config.mode || !!(history.pushState) ? 'history' : 'hash'
 		this.currentFragment = null
 		if (config.routes)
-			config.routes.forEach(route => this.add(route))
+			config.routes.forEach(route => this.addRoute(route))
 	}
 
 	set mode(mode: RouterMode) {
@@ -62,11 +62,11 @@ export class Router {
 		}
 	}
 
-	add(route: Route): void {
+	addRoute(route: Route): void {
 		this.routes.push(route)
 	}
 
-	remove(path: string): void {
+	removeRoute(path: string): void {
 		for (let i = 0; i < this.routes.length; ++i) {
 			const route = this.routes[i]
 			if (path.toString() === route.path.toString())

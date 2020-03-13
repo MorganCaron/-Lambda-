@@ -1,4 +1,4 @@
-import { Reactive } from '../Core/Reactive'
+import { Reactive } from './Reactive'
 
 export type WagnerFischerOptions = {
 	replace: boolean

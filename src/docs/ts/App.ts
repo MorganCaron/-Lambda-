@@ -1,28 +1,26 @@
-import { Component, Attribute, Router } from 'ts/ModularDom'
+import { Component, Router } from 'ts/ModularDom'
+import { Home, Demo, Documentation } from './Pages'
+import './Layouts'
+
 import html from './App.html'
-import css from '!!raw-loader!./App.css'
-import { HomePage } from './Pages'
 
 @Component({
 	selector: 'app-main',
-	template: html,
-	style: css
+	template: html
 })
 class App extends HTMLElement {
 
-	@Attribute() test: string
+	router: Router
 
 	init() {
-		const router = this.querySelector('app-router') as Router
-		router.routes = [
-			{ path: '', component: HomePage }
-		]
-		setInterval(
-			() => {
-				if (this.test == "A")
-					this.test = "B"
-				else
-					document.querySelector("app-main").setAttribute("test", "A")
-			}, 1000)
+		this.router = this.querySelector('app-router') as Router
+
+		[
+			{ path: '', component: Home },
+			{ path: 'demo', component: Demo },
+			{ path: 'documentation', component: Documentation }
+		].forEach(route => this.router.addRoute(route))
+		this.router.listen()
 	}
+
 }

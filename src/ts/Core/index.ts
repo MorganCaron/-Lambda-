@@ -1,4 +1,2 @@
-export * from './Component'
-export * from './Reactive'
-export * from './Router'
-export * from './Template'
+export { Component, Attribute } from './Component'
+export { Flip } from './Flip'
