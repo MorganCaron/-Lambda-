@@ -3,6 +3,7 @@ import { Type, recordToArray, flatify } from './Utils'
 
 export interface ComponentParameters {
 	selector: string
+	classes?: string
 	extends?: string
 	template?: string
 	style?: string
@@ -22,15 +23,19 @@ export const Component = (config: ComponentParameters) => {
 
 		const init = component.prototype.init || function() { }
 		component.prototype.connectedCallback = function() {
+			this.baseContent = this.innerHTML
+			this.innerHTML = ''
+			if (config.classes)
+				this.setAttribute('class', config.classes)
 			const clone = document.importNode(template.content, true)
 			if (config.useShadow)
 				this.attachShadow({ mode: 'open' }).appendChild(clone)
 			else
 				this.appendChild(clone)
-			component.prototype.constructor.__variables__ = findVariablesInHTMLElement(this)
+			this.constructor.__variables__ = findVariablesInHTMLElement(this)
 			init.call(this)
-			component.prototype.constructor.__isInitialized__ = true
-			setVariablesInNodes(this, flatify(recordToArray(component.prototype.constructor.__variables__)))
+			this.constructor.__isInitialized__ = true
+			setVariablesInNodes(this, flatify(recordToArray(this.constructor.__variables__)))
 		}
 
 		const destroy = component.prototype.destroy || function() { }
@@ -50,9 +55,9 @@ export const Component = (config: ComponentParameters) => {
 			attributeChangedCallback(name: string, oldValue: any, newValue: any) {
 				if (oldValue === newValue) return;
 				(this as any)["__" + name] = newValue
-				if (component.prototype.constructor.__isInitialized__) {
+				if (this.constructor.__isInitialized__) {
 					update.call(this)
-					setVariablesInNodes(this, component.prototype.constructor.__variables__[name])
+					setVariablesInNodes(this, this.constructor.__variables__[name])
 				}
 			}
 		})

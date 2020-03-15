@@ -25,11 +25,9 @@ class RouterComponent extends HTMLElement {
 	}
 
 	addRoute(route: ComponentRoute): void {
-		console.log(route.path + ' added')
 		this.router.addRoute({
 			path: route.path,
 			controller: (...parameters: any[]) => {
-				console.log(route.path + ' executed')
 				this.innerHTML = ''
 				this.appendChild(new route.component(parameters))
 			}
@@ -41,7 +39,6 @@ class RouterComponent extends HTMLElement {
 	}
 
 	listen(): void {
-		console.log('listening')
 		this.router.listen()
 	}
 

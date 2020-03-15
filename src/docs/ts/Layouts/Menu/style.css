@@ -9,11 +9,3 @@ li {
 	padding: .1em .2em;
 	list-style-type: none;
 }
-
-a::before {
-	content: "⯈ ";
-}
-
-li:hover {
-	color: #111;
-}

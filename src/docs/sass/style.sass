@@ -11,17 +11,9 @@
 body
 	background-color: #111
 	color: white
-	user-select: none
 
-hr
-	margin-left: -1rem
-	margin-right: -1rem
-
-a
-	+underline-hover(white)
-	color: currentcolor
-	:hover
-		color: white
+h1, h2
+	white-space: nowrap
 
 h1
 	font-size: 3rem
@@ -29,10 +21,23 @@ h1
 h2
 	font-size: 1.5rem
 
-menu-layout li
+a, a:hover
+	color: currentcolor
+
+main-menu li
 	+highlight-hover(white)
+	&:hover
+		color: black
+
+p > a
+	+underline-hover(white)
+	@extend .underlined
+
+li > a::before
+	content: "⯈ "
 
 [class*="tilt-"]
+	padding: 0 .5em
 	background-color: rgba(white, .7)
 	color: #111
 	> h2
