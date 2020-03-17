@@ -2,7 +2,7 @@ import { Component } from 'ts/ModularDom'
 
 @Component({
 	selector: 'tilted-block',
-	classes: 'ml-3 tilt-right-3',
+	classes: 'm-0 mt-3 ml-3 tilt-right-3',
 	extends: 'h2'
 })
 export class TiltedBlock extends HTMLHeadingElement {
