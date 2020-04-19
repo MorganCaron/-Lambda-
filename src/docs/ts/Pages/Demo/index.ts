@@ -5,7 +5,7 @@ import html from './index.html'
 import css from '!!raw-loader!./style.css'
 
 @Component({
-	selector: 'demo-page',
+	selector: 'page-demo',
 	template: html,
 	style: css
 })

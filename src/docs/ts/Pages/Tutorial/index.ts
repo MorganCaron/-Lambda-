@@ -4,7 +4,7 @@ import html from './index.html'
 import css from '!!raw-loader!./style.css'
 
 @Component({
-	selector: 'tutorial-page',
+	selector: 'page-tutorial',
 	template: html,
 	style: css
 })

@@ -12,7 +12,9 @@ import html from './App.html'
 class App extends HTMLElement {
 
 	init() {
-		const router = this.querySelector('app-router') as Router
+		const router = this.querySelector('md-router') as Router
+
+		router.mode = 'hash';
 
 		[
 			{ path: '', component: Home },

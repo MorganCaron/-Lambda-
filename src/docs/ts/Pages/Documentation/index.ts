@@ -3,7 +3,7 @@ import html from './index.html'
 import css from '!!raw-loader!./style.css'
 
 @Component({
-	selector: 'documentation-page',
+	selector: 'page-documentation',
 	template: html,
 	style: css
 })

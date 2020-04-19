@@ -12,7 +12,7 @@ export class Flip {
 
 	save(element: HTMLElement) {
 		this.elements = []
-		Array.from(element.childNodes).forEach(node => {
+		element.childNodes.forEach(node => {
 			if (node instanceof HTMLElement)
 				this.elements.push({
 					node: node,

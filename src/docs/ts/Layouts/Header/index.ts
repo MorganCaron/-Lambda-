@@ -4,7 +4,7 @@ import 'docs/ts/Layouts'
 import html from './index.html'
 
 @Component({
-	selector: 'main-header',
+	selector: 'app-header',
 	template: html
 })
 export class Header extends HTMLElement {
