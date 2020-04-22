@@ -1,5 +1,3 @@
-import { Reactive } from './Reactive'
-
 export type WagnerFischerOptions = {
 	replace: boolean
 }
@@ -16,13 +14,13 @@ export type WagnerFischerResult = {
 	editions: EWagnerFischerEdition[]
 }
 
-export const wagnerFischer = (str1: string, str2: string, options: WagnerFischerOptions): WagnerFischerResult => {
+export const wagnerFischer = (str0: string, str1: string, options: WagnerFischerOptions): WagnerFischerResult => {
 	let distances: number[][] = []
-	for (let i = 0; i <= str1.length; ++i) distances[i] = [i]
-	for (let i = 0; i <= str2.length; ++i) distances[0][i] = i
-	for (let j = 1; j <= str2.length; ++j)
-		for (let i = 1; i <= str1.length; ++i) {
-			if (str1[i - 1] === str2[j - 1])
+	for (let i = 0; i <= str0.length; ++i) distances[i] = [i]
+	for (let i = 0; i <= str1.length; ++i) distances[0][i] = i
+	for (let j = 1; j <= str1.length; ++j)
+		for (let i = 1; i <= str0.length; ++i) {
+			if (str0[i - 1] === str1[j - 1])
 				distances[i][j] = distances[i - 1][j - 1]
 			else {
 				const deletion = distances[i - 1][j]
@@ -36,9 +34,9 @@ export const wagnerFischer = (str1: string, str2: string, options: WagnerFischer
 			}
 		}
 
-	let i = str1.length, j = str2.length, editions: EWagnerFischerEdition[] = []
+	let i = str0.length, j = str1.length, editions: EWagnerFischerEdition[] = []
 	while (i !== 0 && j !== 0) {
-		if (str1[i - 1] === str2[j - 1]) {
+		if (str0[i - 1] === str1[j - 1]) {
 			editions.unshift(EWagnerFischerEdition.NoChange)
 			--i
 			--j
@@ -60,12 +58,12 @@ export const wagnerFischer = (str1: string, str2: string, options: WagnerFischer
 	if (i === 0 && j > 0)
 		while (j-- > 0)
 			editions.unshift(EWagnerFischerEdition.Insertion)
-	else if (j === 0 && i > 0)
+	else if (i > 0 && j === 0)
 		while (i-- > 0)
 			editions.unshift(EWagnerFischerEdition.Deletion)
 
 	return {
-		distance: distances[str1.length][str2.length],
+		distance: distances[str0.length][str1.length],
 		editions: editions
 	}
 }
@@ -73,34 +71,33 @@ export const wagnerFischer = (str1: string, str2: string, options: WagnerFischer
 export type WriterOptions = {
 	duration?: number,
 	interval?: number,
-	replace: boolean
+	replace: boolean,
+	update: (newString: string) => void
 }
 
 export class Writer {
-	target: Reactive<string>
-
-	constructor(string: Reactive<string>) {
-		this.target = string
-	}
-
-	write(newString: string, options: WriterOptions, callback: () => void = null): void {
-		const wagnerFischerResult = wagnerFischer(this.target.value, newString, { replace: options.replace })
+	public static write(oldString: string, newString: string, options: WriterOptions, callback?: (newString: string) => void): void {
+		const wagnerFischerResult = wagnerFischer(oldString, newString, { replace: options.replace })
 		if (!wagnerFischerResult.distance) return
+		let str = oldString
 		const interval = options.duration ? options.duration / wagnerFischerResult.distance : options.interval
 		let posSrc = 0, posDest = 0
 		for (let i = 0; i < wagnerFischerResult.editions.length; ++i) {
 			const edition = wagnerFischerResult.editions[i]
 			if (edition === EWagnerFischerEdition.Insertion)
 				setTimeout((posSrc: number, posDest: number) => {
-					this.target.value = this.target.value.substring(0, posDest) + newString[posSrc] + this.target.value.substr(posDest)
+					str = str.substring(0, posDest) + newString[posSrc] + str.substr(posDest)
+					options.update(str)
 				}, (i + 1) * interval, posSrc, posDest)
 			else if (edition === EWagnerFischerEdition.Substitution)
 				setTimeout((posSrc: number, posDest: number) => {
-					this.target.value = this.target.value.substring(0, posDest) + newString[posSrc] + this.target.value.substr(posDest + 1)
+					str = str.substring(0, posDest) + newString[posSrc] + str.substr(posDest + 1)
+					options.update(str)
 				}, (i + 1) * interval, posSrc, posDest)
 			else if (edition === EWagnerFischerEdition.Deletion)
 				setTimeout((posSrc: number, posDest: number) => {
-					this.target.value = this.target.value.substring(0, posDest) + this.target.value.substr(posDest + 1)
+					str = str.substring(0, posDest) + str.substr(posDest + 1)
+					options.update(str)
 				}, (i + 1) * interval, posSrc, posDest)
 			if (edition !== EWagnerFischerEdition.Deletion) {
 				++posDest
@@ -108,6 +105,6 @@ export class Writer {
 			}
 		}
 		if (callback)
-			setTimeout(callback, wagnerFischerResult.distance * interval)
+			setTimeout(callback, wagnerFischerResult.distance * interval, newString)
 	}
 }

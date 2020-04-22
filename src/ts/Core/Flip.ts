@@ -28,10 +28,12 @@ export class Flip {
 			if (endPos.width && endPos.height) {
 				const deltaX = startPos.x - endPos.x
 				const deltaY = startPos.y - endPos.y
-				if (pair.node.animate && (deltaX || deltaY))
+				const scaleW = startPos.width / endPos.width
+				const scaleH = startPos.height / endPos.height
+				if (pair.node.animate && (deltaX || deltaY || scaleW || scaleH))
 					pair.node.animate([{
 						transformOrigin: 'top left',
-						transform: `translate(${deltaX}px, ${deltaY}px)`
+						transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleW}, ${scaleH})`
 					}, {
 						transformOrigin: 'top left',
 						transform: 'none'
