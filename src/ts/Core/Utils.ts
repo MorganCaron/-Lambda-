@@ -21,3 +21,11 @@ export const zip = <A, B>(first: A[], second: B[]): Zipped<A, B> => {
 }
 
 export const removeDuplicates = <T>(array: T[]): T[] => [...new Set<T>(array)]
+
+export const escapeHtml = (unsafeString: string): string =>
+	unsafeString
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;")

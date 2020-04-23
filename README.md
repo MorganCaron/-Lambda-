@@ -1,8 +1,8 @@
 # ModularDom
 
-## *ModularDom is a TypeScript framework for the creation of single-page web applications.*
-*ModularDom is a **TypeScript framework** designed to facilitate the creation of **single-page web applications**.\
-It allows you to **create your own custom HTML elements** and assign a **state** and **behavior** to them.*
+ModularDom is a JavaScript/TypeScript library for the creation of **single-page web applications**.
+
+*It allows you to **create your own custom HTML elements** and assign a **state** and **behavior** to them.*
 
 ![Github Stars](https://img.shields.io/github/stars/MorganCaron/ModularDom?style=for-the-badge)
 ![Github Forks](https://img.shields.io/github/forks/MorganCaron/ModularDom?style=for-the-badge)
@@ -11,6 +11,31 @@ It allows you to **create your own custom HTML elements** and assign a **state**
 ### Project Health
 [![Codacy](https://img.shields.io/codacy/grade/eb93a6155891444bb965b73aff843b9c?logo=Codacy&style=for-the-badge)](https://www.codacy.com/manual/MorganCaron/ModularDom)
 [![Github Actions](https://img.shields.io/github/workflow/status/MorganCaron/ModularDom/NodeJS%20Deployment?logo=Github&style=for-the-badge)](https://github.com/MorganCaron/ModularDom/actions?query=workflow%3A%22NodeJS+Deployment%22)
+
+---
+
+## What problems exist?
+React, Angular and most other reactivity libraries and frameworks are much criticized.\
+Some for their heaviness, slowness, difficulty to use, lack of cleanliness or difficulty to maintain a project through time.\
+Developers would like to have a minimalist tool, compatible with all projects that doesn't require any particular dependency.
+
+## What solutions does ModularDom offer?
+JavaScript already embeds all the features needed to design reactive web components.\
+You don't need ModularDom or any other framework! :laughing:
+
+- Cross-browser (web standard) for creating and extending reusable components.
+- Requires no library or framework to get started. Vanilla JS/HTML FTW!
+- Provides a familiar programming model. It's just DOM/CSS/HTML.
+- Works well with other new web platform features (Shadow DOM, ``<template>``, CSS custom properties, etc.)
+- Tightly integrated with the browser's DevTools.
+- DOM allows you to dynamically modify page elements, no need for a virtual DOM.
+- Leverage existing accessibility features.
+- JavaScript functions to manipulate the browser history allow to react dynamically to url changes.
+- No virtual DOM. Your app starts fast and stays fast.
+
+### Yes, but these features are very verbose.
+You don't need complex frameworks to create real web applications with components and reactivity.\
+ModularDom is useful to you only for simplification and readability.
 
 ---
 

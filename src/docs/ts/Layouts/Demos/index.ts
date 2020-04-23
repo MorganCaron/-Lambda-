@@ -1,1 +1,1 @@
-export * from './DemoFlip'
+export * from './Flip'
