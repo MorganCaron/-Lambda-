@@ -1,19 +1,9 @@
 {
+	"extends": "webpack-config-generator/tsconfig",
 	"compilerOptions": {
-		"baseUrl": "src",
-		"outDir": "build",
-		"noImplicitAny": true,
-		"removeComments": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
-		"module": "es6",
-		"moduleResolution": "node",
-		"target": "es6",
-		"jsx": "react",
-		"lib": [
-			"dom",
-			"esnext"
-		],
-		"declaration": true
+		"baseUrl": "src",
+		"outDir": "build"
 	}
 }
