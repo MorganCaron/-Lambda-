@@ -14,7 +14,7 @@ const TemplateGetRegex = () => new RegExp(TemplateInformations.openSymbol + ' *(
 
 export const TemplateGetMatchs = (str: string): TemplateMatch[] => {
 	const regex = TemplateGetRegex()
-	let match: RegExpExecArray
+	let match: RegExpExecArray | null
 	let matchs: TemplateMatch[] = []
 	while (match = regex.exec(str))
 		matchs.push({ key: match[1], sample: match[0] })
@@ -31,13 +31,14 @@ export interface NodeContainingVariables {
 
 const findVariablesInTextNode = (node: Node): Record<string, NodeContainingVariables[]> => {
 	const variables: Record<string, NodeContainingVariables[]> = {}
-	TemplateGetKeys(node.nodeValue).forEach(key => {
-		if (!variables[key]) variables[key] = []
-		variables[key].push({
-			node: node,
-			template: node.nodeValue
+	if (node.nodeValue)
+		TemplateGetKeys(node.nodeValue).forEach(key => {
+			if (!variables[key]) variables[key] = []
+			variables[key].push({
+				node: node,
+				template: node.nodeValue
+			})
 		})
-	})
 	return variables
 }
 

@@ -14,7 +14,7 @@ export class Menu extends HTMLElement {
 	init() {
 		const router = document.querySelector('md-router') as Router
 		this.querySelectorAll('a').forEach(button => {
-			const href = button.getAttribute('href')
+			const href = button.getAttribute('href') || ''
 			button.addEventListener("click", (event) => {
 				event.preventDefault()
 				router.navigate(href)

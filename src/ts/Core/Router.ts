@@ -14,8 +14,7 @@ export class Router {
 	routes: Route[]
 	root: string
 	_mode: RouterMode
-	currentFragment: string
-	interval: number
+	currentFragment: string | null
 
 	constructor(config: RouterParameters) {
 		this.routes = []
@@ -90,9 +89,9 @@ export class Router {
 		window.addEventListener('popstate', updateRoute.bind(this))
 	}
 
-	navigate(path: string = ''): void {
+	navigate(path: string): void {
 		if (this._mode === 'history')
-			history.pushState(null, null, this.root + this.clearSlashes(path))
+			history.pushState(null, '', this.root + this.clearSlashes(path))
 		else
 			window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path
 		if (this.currentFragment !== this.getFragment()) {

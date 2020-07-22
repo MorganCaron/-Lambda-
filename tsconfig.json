@@ -1,6 +1,7 @@
 {
 	"extends": "webpack-config-generator/tsconfig",
 	"compilerOptions": {
+		"target": "es6",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"baseUrl": "src",

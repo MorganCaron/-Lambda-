@@ -12,16 +12,19 @@ import css from '!!raw-loader!./style.css'
 export class DemoFlip extends HTMLElement {
 
 	private m_flip: Flip = new Flip()
-	private m_grabbedElement: HTMLElement = null
+	private m_grabbedElement: HTMLElement | null = null
 
 	init() {
-		this.childNodes.forEach(node => {
-			node.addEventListener('mousedown', event => {
-				this.grab(node as HTMLElement, event as MouseEvent)
-			})
-			node.addEventListener('mouseup', () => {
-				this.drop(node)
-			})
+		this.childNodes.forEach((node: Node) => {
+			if (node instanceof HTMLElement) {
+				const element = node as HTMLElement
+				element.addEventListener('mousedown', (event: MouseEvent) => {
+					this.grab(element, event)
+				})
+				element.addEventListener('mouseup', () => {
+					this.drop(element)
+				})
+			}
 		})
 		document.addEventListener('mouseup', () => {
 			this.drop()
@@ -31,7 +34,7 @@ export class DemoFlip extends HTMLElement {
 		})
 	}
 
-	private anElementIsGrabbed(): boolean {
+	public anElementIsGrabbed(): boolean {
 		return (this.m_grabbedElement !== null)
 	}
 
@@ -43,26 +46,26 @@ export class DemoFlip extends HTMLElement {
 	}
 
 	private grab(element: HTMLElement, event: MouseEvent) {
-		if (this.anElementIsGrabbed())
-			return;
-		this.m_grabbedElement = element
-		this.m_flip.save(this)
-		element.classList.add('grabbed')
-		this.moveGrabbedElementToMousePosition(event)
-		this.m_flip.play({ duration: 500, easing: 'ease-in-out' })
+		if (!this.anElementIsGrabbed()) {
+			this.m_grabbedElement = element
+			this.m_flip.save(this)
+			element.classList.add('grabbed')
+			this.moveGrabbedElementToMousePosition(event)
+			this.m_flip.play({ duration: 500, easing: 'ease-in-out' })
+		}
 	}
 
-	private drop(nextNode: Node = null) {
-		if (!this.anElementIsGrabbed() || nextNode === this.m_grabbedElement)
-			return;
-		this.m_flip.save(this)
-		this.m_grabbedElement.classList.remove('grabbed')
-		this.m_grabbedElement.removeAttribute('style')
-		if (nextNode !== null) {
-			this.removeChild(this.m_grabbedElement)
-			this.insertBefore(this.m_grabbedElement, nextNode);
+	private drop(nextElement: HTMLElement | null = null) {
+		if (this.anElementIsGrabbed() && nextElement !== this.m_grabbedElement) {
+			this.m_flip.save(this)
+			this.m_grabbedElement.classList.remove('grabbed')
+			this.m_grabbedElement.removeAttribute('style')
+			if (nextElement !== null) {
+				this.removeChild(this.m_grabbedElement)
+				this.insertBefore(this.m_grabbedElement, nextElement)
+			}
+			this.m_flip.play({ duration: 500, easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)' })
+			this.m_grabbedElement = null
 		}
-		this.m_flip.play({ duration: 500, easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)' })
-		this.m_grabbedElement = null
 	}
 }

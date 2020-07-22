@@ -10,7 +10,7 @@ export interface ComponentParameters {
 	useShadow?: boolean
 }
 
-const createTemplate = (html: string, style?: string): HTMLTemplateElement => {
+const createTemplate = (html?: string, style?: string): HTMLTemplateElement => {
 	const template = document.createElement('template')
 	template.innerHTML = (style ? `<style>${style}</style>` : '') + (html || '')
 	return template

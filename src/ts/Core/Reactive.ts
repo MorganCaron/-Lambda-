@@ -1,7 +1,7 @@
 export class Reactive<T> {
 	private dependencies: Reactive<any>[]
-	private __value: T
-	private __updateFunction: () => void
+	private __value: T | undefined
+	private __updateFunction: (() => void) | null = null
 
 	constructor(value?: T) {
 		this.dependencies = []
@@ -28,13 +28,13 @@ export class Reactive<T> {
 	}
 
 	// Defines the value of the reactive variable
-	set value(val: T) {
+	set value(val: T | undefined) {
 		this.__value = val
 		this.update()
 	}
 
 	// Returns the value of the reactive variable
-	get value(): T {
+	get value(): T | undefined {
 		return this.__value
 	}
 }

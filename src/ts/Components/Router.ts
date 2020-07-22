@@ -16,6 +16,9 @@ class RouterComponent extends HTMLElement {
 		mode: 'hash'
 	})
 
+	beforePageChanging: (() => void) | null = null
+	afterPageChanging: (() => void) | null = null
+
 	set mode(mode: RouterMode) {
 		this.router.mode = mode
 	}
@@ -28,8 +31,10 @@ class RouterComponent extends HTMLElement {
 		this.router.addRoute({
 			path: route.path,
 			controller: (...parameters: any[]) => {
+				if (this.beforePageChanging !== null) this.beforePageChanging()
 				this.innerHTML = ''
 				this.appendChild(new route.component(parameters))
+				if (this.afterPageChanging !== null) this.afterPageChanging()
 			}
 		})
 	}
