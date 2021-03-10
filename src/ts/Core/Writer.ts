@@ -80,7 +80,7 @@ export class Writer {
 		const wagnerFischerResult = wagnerFischer(oldString, newString, { replace: options.replace })
 		if (!wagnerFischerResult.distance) return
 		let str = oldString
-		const interval = options.duration ? options.duration / wagnerFischerResult.distance : options.interval
+		const interval: number = options.duration ? options.duration / wagnerFischerResult.distance : (options.interval ?? 10)
 		let posSrc = 0, posDest = 0
 		for (let i = 0; i < wagnerFischerResult.editions.length; ++i) {
 			const edition = wagnerFischerResult.editions[i]

@@ -36,7 +36,7 @@ const findVariablesInTextNode = (node: Node): Record<string, NodeContainingVaria
 			if (!variables[key]) variables[key] = []
 			variables[key].push({
 				node: node,
-				template: node.nodeValue
+				template: node.nodeValue ?? ""
 			})
 		})
 	return variables

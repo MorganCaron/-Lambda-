@@ -10,7 +10,7 @@ import html from './index.html'
 export class Header extends HTMLElement {
 
 	@Attribute()
-	h1: string
+	h1: string = ''
 
 	init() {
 		this.h1 = '<ModularDom/>'

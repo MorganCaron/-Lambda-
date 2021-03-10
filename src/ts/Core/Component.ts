@@ -55,9 +55,9 @@ export const Component = (config: ComponentParameters) => {
 			attributeChangedCallback(name: string, oldValue: any, newValue: any) {
 				if (oldValue === newValue) return;
 				(this as any)["__" + name] = newValue
-				if (this.constructor.__isInitialized__) {
+				if ((this.constructor as any).__isInitialized__) {
 					update.call(this)
-					setVariablesInNodes(this, this.constructor.__variables__[name])
+					setVariablesInNodes(this as any, (this.constructor as any).__variables__[name])
 				}
 			}
 		})

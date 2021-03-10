@@ -14,7 +14,7 @@ import DemoFlipTs from '!!raw-loader!docs/ts/Layouts/Demos/Flip/index.ts'
 })
 export class Demo extends HTMLElement {
 
-	demoFlipTs: string
+	demoFlipTs: string = ''
 
 	init() {
 		this.demoFlipTs = DemoFlipTs

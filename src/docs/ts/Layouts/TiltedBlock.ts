@@ -7,7 +7,7 @@ import { Component } from 'ts/ModularDom'
 })
 export class TiltedBlock extends HTMLHeadingElement {
 
-	baseContent: string
+	baseContent: string = ''
 
 	init() {
 		this.innerHTML = `<span>${this.baseContent}</span>`
