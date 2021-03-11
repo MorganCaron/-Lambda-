@@ -2,7 +2,5 @@ app-footer {
 	display: block;
 	box-sizing: border-box;
 	border-bottom: 100vh solid #111;
-	margin-bottom: -100vh;
-	overflow: auto;
 	background: #111;
 }

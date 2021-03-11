@@ -12,7 +12,7 @@ export interface ComponentParameters {
 
 const createTemplate = (html?: string, style?: string): HTMLTemplateElement => {
 	const template = document.createElement('template')
-	template.innerHTML = (style ? `<style>${style}</style>` : '') + (html || '')
+	template.innerHTML = (style ? `<style>${style}</style>` : '') + (html ?? '')
 	return template
 }
 
@@ -21,7 +21,7 @@ export const Component = (config: ComponentParameters) => {
 	return <T extends Type<HTMLElement>>(component: T) => {
 		const template = createTemplate(config.template, config.style)
 
-		const init = component.prototype.init || function() { }
+		const init = component.prototype.init ?? function() { }
 		component.prototype.connectedCallback = function() {
 			this.baseContent = this.innerHTML
 			this.innerHTML = ''
@@ -38,7 +38,7 @@ export const Component = (config: ComponentParameters) => {
 			setVariablesInNodes(this, flatify(recordToArray(this.constructor.__variables__)))
 		}
 
-		const destroy = component.prototype.destroy || function() { }
+		const destroy = component.prototype.destroy ?? function() { }
 		component.prototype.disconnectedCallback = () => destroy.call(this)
 
 		if (!component.prototype.constructor.hasOwnProperty('__attributes__'))
@@ -50,7 +50,7 @@ export const Component = (config: ComponentParameters) => {
 			}
 		})
 
-		const update = component.prototype.update || function() { }
+		const update = component.prototype.update ?? function() { }
 		Object.assign(component.prototype, {
 			attributeChangedCallback(name: string, oldValue: any, newValue: any) {
 				if (oldValue === newValue) return;
