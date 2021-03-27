@@ -2,35 +2,29 @@
 	"name": "modulardom",
 	"version": "1.0.0",
 	"description": "TypeScript framework designed to facilitate the creation of single-page web applications",
-	"main": "build/ModularDom.min.js",
-	"types": "build/ModularDom.d.ts",
-	"bin": {
-		"ModularDom": "build/ModularDom.min.js"
-	},
-	"scripts": {
-		"watch": "webpack serve --mode development",
-		"dev": "webpack serve --mode development",
-		"build": "webpack --mode production",
-		"prod": "webpack --mode production"
-	},
 	"keywords": [
 		"typescript",
 		"ts-framework",
 		"typescript-framework",
-		"simple",
-		"reactive"
+		"custom-element"
 	],
-	"author": "Morgan Caron",
-	"license": "ISC",
+	"main": "build/ModularDom.min.js",
+	"types": "build/ModularDom.d.ts",
+	"scripts": {
+		"dev": "webpack serve --open --mode development",
+		"build": "webpack --mode production"
+	},
 	"devDependencies": {
-		"@types/prismjs": "^1.16.3",
+		"@types/prismjs": "^1.16.4",
 		"babel-plugin-prismjs": "^2.0.1",
 		"nootstrap": "git+https://github.com/MorganCaron/Nootstrap.git",
-		"prism-themes": "^1.5.0",
+		"prism-themes": "^1.6.0",
 		"prismjs": "^1.23.0",
 		"raw-loader": "^4.0.2",
-		"webpack-config-generator": "^1.0.15"
+		"webpack-config-generator": "^1.0.18"
 	},
+	"author": "Morgan Caron",
+	"license": "ISC",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/MorganCaron/ModularDom.git"
@@ -38,6 +32,5 @@
 	"bugs": {
 		"url": "https://github.com/MorganCaron/ModularDom/issues"
 	},
-	"homepage": "https://github.com/MorganCaron/ModularDom#readme",
-	"dependencies": {}
+	"homepage": "https://github.com/MorganCaron/ModularDom#readme"
 }

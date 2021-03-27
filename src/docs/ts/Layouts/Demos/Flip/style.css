@@ -1,11 +1,13 @@
 demo-flip {
-	font-size: 0;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
 }
 
 demo-flip img {
 	opacity: 1;
 	transition: opacity .5s;
 	transition-timing-function: ease-in-out;
+	width: 100%;
 	user-select: none;
 	-webkit-user-drag: none;
 	-khtml-user-drag: none;
