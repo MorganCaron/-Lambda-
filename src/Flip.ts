@@ -13,7 +13,7 @@ export class Flip {
 		Array.from(parent.childNodes).forEach(element => {
 			if (element instanceof Element)
 				this.elements.push({
-					element: element,
+					element,
 					rect: element.getBoundingClientRect() as DOMRect
 				})
 		})

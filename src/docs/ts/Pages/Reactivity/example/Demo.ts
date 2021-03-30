@@ -16,8 +16,10 @@ export class Demo extends Layout {
 		this.operand0.depend(this.result)
 		this.operand1.depend(this.result)
 		this.result.subscribe(() => {
-			const result = this.operand0.value + this.operand1.value
-			this.el.querySelector('.result').innerHTML = this.operand0.value + ' + ' + this.operand1.value + ' = ' + result
+			const result: number = this.operand0.value + this.operand1.value
+			const resultContainer: HTMLElement | null = this.el.querySelector('.result')
+			if (resultContainer !== null)
+				resultContainer.innerHTML = this.operand0.value + ' + ' + this.operand1.value + ' = ' + result
 		})
 
 		this.update()
@@ -37,9 +39,9 @@ export class Demo extends Layout {
 			div class: container-fluid {
 				h4 "Addition"
 				p class: lead "Operand 0:"
-				input type: number input: ${this.operand0Change.bind(this)} value: "${this.operand0.value}";
+				input type: number input: ${this.operand0Change.bind(this) as EventListener} value: "${this.operand0.value}";
 				p class: lead "Operand 1:"
-				input type: number input: ${this.operand1Change.bind(this)} value: "${this.operand1.value}";
+				input type: number input: ${this.operand1Change.bind(this) as EventListener} value: "${this.operand1.value}";
 				p class: "lead result" ""
 			}
 		`

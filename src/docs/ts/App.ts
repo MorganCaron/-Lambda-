@@ -9,7 +9,7 @@ class App extends Body {
 
 	constructor() {
 		super()
-		this.page = new Reactive()
+		this.page = new Reactive(new HomePage())
 		this.page.subscribe(this.update.bind(this))
 
 		Router.mode = 'hash'

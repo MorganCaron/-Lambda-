@@ -1,9 +1,9 @@
 import { Elem, Attributes, VDOMText, VDOMObject, VDOMElem } from './VDom'
 
 class ModularDomParser {
-	values: (string | Elem | EventListener)[]
-	indexValue: number
-	indexChar: number
+	values: (string | Elem | EventListener)[] = []
+	indexValue: number = 0
+	indexChar: number = 0
 
 	currentValue(): (string | Elem | EventListener) {
 		return this.values[this.indexValue]

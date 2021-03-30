@@ -1,9 +1,9 @@
 export class Reactive<T> {
 	dependencies: Reactive<any>[]
 	_value: T
-	_updateFunction: () => void
+	_updateFunction: (() => void) | undefined
 
-	constructor(value?: T) {
+	constructor(value: T) {
 		this.dependencies = []
 		this._value = value
 	}

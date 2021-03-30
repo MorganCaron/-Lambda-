@@ -89,7 +89,7 @@ export class Layout extends VDOMObject {
 
 class Head extends VDOMObject {
 	constructor() {
-		super(document.querySelector('head'))
+		super(document.querySelector('head') as Element)
 
 		const queries = [
 			'meta[name="viewport"]',
@@ -115,7 +115,7 @@ export class Body extends VDOMObject {
 	_head: Head
 	animationOptions: KeyframeAnimationOptions
 
-	constructor(animationOptions: KeyframeAnimationOptions = undefined) {
+	constructor(animationOptions: KeyframeAnimationOptions | undefined = undefined) {
 		super(document.body)
 		this.animationOptions = { duration: 500, easing: 'ease-in-out', ...animationOptions }
 		this.el.innerHTML = ''
@@ -142,7 +142,7 @@ export class Body extends VDOMObject {
 		})
 		newAttrs.forEach(newAttr => {
 			const attrName = newAttr.name
-			const newValue = newElem.getAttribute(attrName)
+			const newValue = newElem?.getAttribute(attrName) || ""
 			if (!oldElem.hasAttribute(attrName) || oldElem.getAttribute(attrName) !== newElem.getAttribute(attrName))
 				oldElem.setAttribute(attrName, newValue)
 		})

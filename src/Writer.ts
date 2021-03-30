@@ -83,10 +83,10 @@ export class Writer {
 		this.target = string
 	}
 
-	write(newString: string, options: WriterOptions, callback: () => void = null): void {
+	write(newString: string, options: WriterOptions, callback: (() => void) | undefined = undefined): void {
 		const wagnerFischerResult = wagnerFischer(this.target.value, newString, { replace: options.replace })
 		if (!wagnerFischerResult.distance) return
-		const interval = options.duration ? options.duration / wagnerFischerResult.distance : options.interval
+		const interval = options.duration ? options.duration / wagnerFischerResult.distance : (options.interval || 0)
 		let posSrc = 0, posDest = 0
 		for (let i = 0; i < wagnerFischerResult.editions.length; ++i) {
 			const edition = wagnerFischerResult.editions[i]
@@ -107,7 +107,7 @@ export class Writer {
 				++posSrc
 			}
 		}
-		if (callback)
+		if (callback !== undefined)
 			setTimeout(callback, wagnerFischerResult.distance * interval)
 	}
 }

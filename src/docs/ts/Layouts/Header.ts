@@ -10,14 +10,14 @@ export class Header extends Layout {
 		this.title.subscribe(this.update.bind(this))
 		this.update()
 
-		const writer = new Writer(this.title)
+		this.writer = new Writer(this.title)
 		const writerOptions: WriterOptions = {
 			interval: 100,
 			replace: true
 		}
-		const writerHelloWorld = () => writer.write("Hello World !", writerOptions, () => setTimeout(writerVoid, 1000))
-		const writerVoid = () => writer.write("</>", writerOptions, writerModularDom)
-		const writerModularDom = () => writer.write("<ModularDom/>", writerOptions, () => setTimeout(writerHelloWorld, 5000))
+		const writerHelloWorld = () => this.writer.write("Hello World !", writerOptions, () => setTimeout(writerVoid, 1000))
+		const writerVoid = () => this.writer.write("</>", writerOptions, writerModularDom)
+		const writerModularDom = () => this.writer.write("<ModularDom/>", writerOptions, () => setTimeout(writerHelloWorld, 5000))
 		setTimeout(writerHelloWorld, 5000)
 	}
 

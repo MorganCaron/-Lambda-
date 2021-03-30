@@ -7,10 +7,9 @@ class RouterController {
 	routes: Route[]
 	root: string
 	_mode: 'history' | 'hash'
-	currentFragment: string
-	interval: number
+	currentFragment: string | null
 
-	constructor(mode: 'history' | 'hash' = undefined) {
+	constructor(mode: 'history' | 'hash' | undefined = undefined) {
 		this.routes = []
 		this.root = '/'
 		this._mode = mode || !!(history.pushState) ? 'history' : 'hash'
@@ -48,7 +47,7 @@ class RouterController {
 			let match = fragment.match('^' + route.regex + '$')
 			if (match) {
 				match.shift()
-				route.controller.apply({}, match)
+				route.controller.apply({}, match as [])
 			}
 		}
 	}
@@ -67,7 +66,7 @@ class RouterController {
 
 	check(regexPath: string): boolean {
 		const fragment = this.getFragment()
-		return (fragment.match('^' + regexPath + '$') != null)
+		return (fragment.match('^' + regexPath + '$') !== null)
 	}
 
 	listen(): void {
@@ -84,7 +83,7 @@ class RouterController {
 	navigate(path: string): void {
 		path = path ? path : '';
 		if (this._mode === 'history')
-			history.pushState(null, null, this.root + this.clearSlashes(path))
+			history.pushState(null, '', this.root + this.clearSlashes(path))
 		else
 			window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path
 		if (this.currentFragment !== this.getFragment()) {
